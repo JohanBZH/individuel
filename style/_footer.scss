@@ -1,0 +1,2 @@
+/* FOOTER — clean and responsive */
+footer .list-inline-item + .list-inline-item::before { content: "·"; margin: 0 .5rem; color: var(--bs-secondary-color); }

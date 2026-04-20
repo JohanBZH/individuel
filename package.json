@@ -1,0 +1,16 @@
+{
+  "name": "grenier-en-ligne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass style:public/style --no-source-map",
+    "watch": "sass --watch style:public/style",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

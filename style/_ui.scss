@@ -1,0 +1,47 @@
+/* UI utilities and components inspired by inspiration.jsx (no Bootstrap) */
+
+/* Search pill */
+.search-pill { display:flex; align-items:center; gap:.5rem; border:1px solid var(--bs-border-color); border-radius:9999px; padding:.5rem .75rem; background: var(--surface-0); box-shadow: var(--shadow-sm); }
+.search-pill input { flex:1; background: transparent; border:0; outline:0; font-size:.95rem; color: inherit; }
+.search-pill button { border:1px solid var(--bs-border-color); background: var(--surface-0); border-radius:9999px; padding:.35rem .7rem; font-size:.85rem; }
+.search-pill button:hover { background: color-mix(in srgb, var(--bs-body-color) 4%, transparent); }
+
+/* Segmented control for theme */
+.segmented { display:inline-flex; border:1px solid var(--bs-border-color); background: var(--surface-0); border-radius:9999px; padding:.25rem; gap:.25rem; }
+.segmented .seg-btn { border:0; background: transparent; border-radius:9999px; padding:.25rem .6rem; font-size:.75rem; font-weight:600; color: var(--bs-secondary); }
+.segmented .seg-btn[aria-pressed="true"] { background: var(--bs-body-color); color: var(--surface-0); }
+[data-bs-theme="dark"] .segmented .seg-btn[aria-pressed="true"] { background: #fff; color:#0b1220; }
+
+/* Avatar circle */
+.avatar { display:grid; place-items:center; width:36px; height:36px; border-radius:9999px; border:1px solid var(--bs-border-color); background: var(--surface-0); font-weight:600; font-size:.8rem; }
+
+/* Dropdown menu */
+.dropdown { position: relative; }
+.dropdown-menu { position: absolute; top:calc(100% + .5rem); right:0; background: var(--glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border:1px solid var(--bs-border-color); border-radius:.75rem; box-shadow: var(--shadow-md); padding:.25rem; min-width:200px; display:none; }
+.dropdown-menu.show, .dropdown-menu.d-block { display:block; }
+.dropdown-menu a { display:block; padding:.5rem .75rem; border-radius:.5rem; color:inherit; text-decoration:none; }
+.dropdown-menu a:hover { background: color-mix(in srgb, var(--bs-body-color) 4%, transparent); }
+.dropdown-divider { height:1px; background: var(--bs-border-color); margin:.25rem 0; }
+
+/* Reservation card */
+.card-res .card-header { display:flex; align-items:center; justify-content:space-between; gap:.5rem; border-bottom:1px solid var(--bs-border-color); padding:.5rem .75rem; }
+.card-res .card-body { display:flex; flex-direction:column; gap:.5rem; padding:.75rem; }
+.status-dot { display:inline-block; width:10px; height:10px; border-radius:50%; background:#10b981; }
+.badge-status { border-radius:9999px; padding:.15rem .5rem; font-size:.75rem; font-weight:600; border:1px solid transparent; }
+.badge-ok { color:#065f46; background: color-mix(in srgb, #10b981 18%, transparent); border-color: color-mix(in srgb, #10b981 35%, transparent); }
+.badge-pending { color:#854d0e; background: color-mix(in srgb, #f59e0b 20%, transparent); border-color: color-mix(in srgb, #f59e0b 35%, transparent); }
+
+/* Hero */
+.hero-title { font-weight: 700; letter-spacing: -0.015em; }
+
+/* Visibility helpers */
+.d-md-flex { display:none; }
+@media (min-width: 768px){ .d-md-flex { display:flex !important; } }
+
+/* Max width utility similar to max-w-7xl */
+.max-w-7xl { max-width: 1280px; margin-inline:auto; }
+.px-4 { padding-inline: 1rem; }
+.px-6 { padding-inline: 1.5rem; }
+.py-3 { padding-block: .75rem; }
+.py-8 { padding-block: 2rem; }
+@media (min-width: 768px){ .md\:px-6 { padding-inline: 1.5rem; } .md\:py-12 { padding-block: 3rem; } }

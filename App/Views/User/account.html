@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="container section">
+    <div class="d-flex align-items-center justify-content-between mb-3" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+            {% set uname = user and user.username ? user.username : 'Utilisateur' %}
+            {% set initials = uname|slice(0,2)|upper %}
+            <div class="avatar lg" aria-hidden="true" style="width:48px; height:48px; font-size:18px;">{{ initials }}</div>
+            <div>
+                <h1 class="h4 mb-0" style="margin:0;">Mon profil</h1>
+                <div class="sub">{{ uname }}</div>
+            </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+            <a href="/myreservations" class="btn ghost"><i class="bi bi-list-ul" style="margin-right:6px;"></i>Mes réservations</a>
+            <a href="/reservation" class="btn primary"><i class="bi bi-plus-circle" style="margin-right:6px;"></i>Nouvelle réservation</a>
+            <a href="/logout" class="btn ghost"><i class="bi bi-box-arrow-right" style="margin-right:6px;"></i>Déconnexion</a>
+        </div>
+    </div>
+
+    <div class="grid-2" style="display:grid; grid-template-columns: 1fr; gap:16px;">
+        <div class="card">
+            <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between;">
+                <h2 class="h5" style="margin:0;">Résumé</h2>
+            </div>
+            <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:8px;">
+                <div class="stat" style="min-width:160px;">
+                    <div class="sub">Total réservations</div>
+                    <div style="font-weight:600; font-size:20px;">{{ reservations|length }}</div>
+                </div>
+                {# Placeholders for future metrics if needed #}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">
+                <h2 class="h5" style="margin:0;">Mes dernières réservations</h2>
+                <a href="/myreservations" class="btn sm ghost">Tout voir</a>
+            </div>
+            {% if reservations is defined and reservations %}
+                <div class="upcoming-list">
+                    {% for r in reservations|slice(0,5) %}
+                        <article class="booking">
+                            {% set runame = r.username is defined and r.username ? r.username : uname %}
+                            {% set rinitials = runame|slice(0,2)|upper %}
+                            <div class="avatar" aria-hidden="true">{{ rinitials }}</div>
+                            <div>
+                                <div style="display:flex; align-items:flex-start; gap:8px; flex-wrap:nowrap;">
+                                    <h3 style="margin:0;">{{ r.room|default('Salle') }}</h3>
+                                    <div class="tags" style="display:inline-flex; gap:6px; flex-wrap:nowrap; align-items:flex-start; margin-left:6px;">
+                                        {% if r.room_features is defined and r.room_features %}
+                                            {% set tags = r.room_features|split(',') %}
+                                            {% for tag in tags|slice(0,2) %}
+                                                {% set t = tag|trim %}
+                                                {% if t %}<span class="chip xs">{{ t }}</span>{% endif %}
+                                            {% endfor %}
+                                        {% elseif r.comment %}
+                                            <span class="chip xs">{{ r.comment }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="sub">Réservé par <strong>{{ r.username|default(uname) }}</strong></div>
+                                <div class="sub">Pour la date du <strong>{{ r.start_datetime|fr_date }}</strong></div>
+                                <div class="sub">À {% if r.building_name is defined and r.building_name %}{{ r.building_name }}{% else %}—{% endif %} dès <strong>{{ r.start_datetime|fr_time }}</strong>{% if r.duration_minutes is defined %}, pendant {{ r.duration_minutes|fr_duration }}{% endif %}</div>
+                            </div>
+                            <div class="actions" style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
+                                <a class="btn sm ghost" href="/reservation/{{ r.id }}">Voir</a>
+                                <a class="btn sm ghost" href="/reservation/edit/{{ r.id }}">Modifier</a>
+                                <a class="btn sm ghost" href="/reservation/cancel/{{ r.id }}">Annuler</a>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="sub">Vous n'avez aucune réservation pour le moment.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

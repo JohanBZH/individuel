@@ -1,0 +1,94 @@
+// Design tokens and Bootstrap variable overrides for a modern, pro look
+
+// Typography and radii
+:root {
+  --bs-body-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bs-body-font-size: 1.0625rem; /* ~17px for a slightly larger overall scale */
+  --bs-border-radius: .75rem;
+  --bs-border-radius-sm: .5rem;
+  --bs-border-radius-lg: 1rem;
+  --bs-border-radius-xl: 1.25rem;
+
+  // Brand palette
+  --bs-primary: #10b981; /* emerald-500 */
+  --bs-primary-rgb: 16,185,129;
+  --bs-secondary: #64748b; /* slate-500 */
+  --bs-success: #22c55e; /* green-500 */
+  --bs-info: #38bdf8; /* sky-400 */
+  --bs-warning: #f59e0b; /* amber-500 */
+  --bs-danger: #ef4444; /* red-500 */
+
+  // Surfaces
+  --surface-0: #ffffff;
+  --surface-1: #f8fafc; /* slate-50 */
+  --surface-2: #f1f5f9; /* slate-100 */
+
+  // Shadows
+  --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+  --shadow-md: 0 .25rem .75rem rgba(0,0,0,.10);
+}
+
+html[data-bs-theme="dark"] {
+  --bs-body-bg: #0b1220;
+  --bs-body-color: #e5e7eb;
+  --bs-secondary: #94a3b8;
+  --surface-0: #0b1220;
+  --surface-1: #0f172a; /* slate-900 */
+  --surface-2: #111827; /* gray-900 */
+  --bs-border-color: #1f2937;
+}
+
+body {
+  font-family: var(--bs-body-font-family);
+  background-color: var(--bs-body-bg, var(--surface-1));
+}
+
+/* Links polished */
+:root {
+  --link-color: var(--bs-primary);
+}
+
+a {
+  color: var(--link-color);
+}
+a:hover { color: color-mix(in srgb, var(--link-color) 85%, black); }
+
+/* Sections */
+.section {
+  padding: 2rem 0;
+}
+.section-lg {
+  padding: 3rem 0;
+}
+
+/* Brand squircle for logo */
+.brand-squircle {
+  display: inline-grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  background: #10b981; /* emerald-500 */
+  color: #fff;
+  border-radius: 28%; /* squircle-like */
+  font-size: .95rem;
+  letter-spacing: .5px;
+}
+
+/* Radial gradient helpers */
+.bg-radial {
+  background-image: radial-gradient(1200px 600px at 0% -10%, rgba(16,185,129,.16), transparent 60%),
+                    radial-gradient(900px 450px at 100% 10%, rgba(52,211,153,.12), transparent 60%);
+}
+[data-bs-theme="dark"] .bg-radial {
+  background-image: radial-gradient(1200px 600px at 0% -10%, rgba(16,185,129,.12), transparent 60%),
+                    radial-gradient(900px 450px at 100% 10%, rgba(52,211,153,.10), transparent 60%);
+}
+
+/* Glass surface tokens */
+:root {
+  --glass-bg: color-mix(in srgb, var(--surface-0) 80%, transparent);
+  --glass-border: color-mix(in srgb, var(--bs-body-color) 8%, transparent);
+}
+html[data-bs-theme="dark"] {
+  --glass-bg: color-mix(in srgb, var(--surface-1) 40%, transparent);
+  --glass-border: color-mix(in srgb, var(--bs-body-color) 12%, transparent);
+}

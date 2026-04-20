@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Réservation{% endblock %}
+
+{% block body %}
+<div class="container section">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h1 class="h4 mb-0">Détail de la réservation</h1>
+                <a href="/reservations" class="btn ghost"><i class="bi bi-arrow-left"></i>Retour</a>
+            </div>
+            <div class="card">
+                <div class="d-flex align-items-center justify-content-between mb-3" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                    <h2 class="h5 mb-0" style="margin:0;">Salle <span class="text-primary">{{ reservation.room }}</span></h2>
+                    <span class="chip"><i class="bi bi-building" style="margin-right:6px;"></i>{{ reservation.building_name|default('') }}</span>
+                </div>
+
+                {# Summary sentence with 3 lines and bold parts #}
+                <div class="mb-3" style="margin-bottom:10px; line-height:1.5;">
+                    <div>Réservé par <strong>{{ reservation.username }}</strong></div>
+                    <div>Pour la date du <strong>{{ reservation.start_datetime|fr_date }}</strong></div>
+                    <div>À {% if reservation.building_name %}{{ reservation.building_name }}{% else %}—{% endif %} dès <strong>{{ reservation.start_datetime|fr_time }}</strong>{% if reservation.duration_minutes is defined %}, pendant {{ reservation.duration_minutes|fr_duration }}{% endif %}</div>
+                </div>
+
+                <div class="row g-3 small text-body-secondary mb-3" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; color: var(--muted); margin-bottom:10px;">
+                    <div style="grid-column: span 2;"><i class="bi bi-calendar-event" style="margin-right:8px;"></i><strong>Date :</strong> {{ reservation.start_datetime|fr_datetime }}{% if reservation.duration_minutes is defined %} • <strong>Durée :</strong> {{ reservation.duration_minutes|fr_duration }}{% endif %}</div>
+                    <div><i class="bi bi-person-circle" style="margin-right:8px;"></i><strong>Par :</strong> {{ reservation.username }}</div>
+                    <div><i class="bi bi-envelope" style="margin-right:8px;"></i><strong>Contact :</strong> <a href="mailto:{{ reservation.email }}">{{ reservation.email }}</a></div>
+                </div>
+
+                {% if reservation.comment %}
+                    <h3 class="h6" style="margin: 0 0 6px;">Commentaire</h3>
+                    <p class="mb-0" style="margin:0;">{{ reservation.comment }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

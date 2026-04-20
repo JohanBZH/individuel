@@ -1,0 +1,12 @@
+/* HEADER — minimal, modern, Bootstrap-first */
+body.ovf--hidden { overflow: hidden !important; }
+
+
+.navbar .btn-icon { width: 40px; height: 40px; display: inline-grid; place-items: center; padding: 0; }
+.navbar .btn-icon .d-dark { display: none; }
+[data-bs-theme="dark"] .navbar .btn-icon .d-light { display: none; }
+[data-bs-theme="dark"] .navbar .btn-icon .d-dark { display: inline; }
+
+
+/* Offcanvas tweaks */
+.offcanvas { --bs-offcanvas-width: 320px; }

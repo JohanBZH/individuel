@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Réserver une salle{% endblock %}
+
+{% block body %}
+<div class="container section">
+    <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
+        <h1 class="h4" style="margin:0;">Nouvelle réservation</h1>
+        <a href="javascript:history.back()" class="btn ghost"><i class="bi bi-arrow-left" style="margin-right:6px;"></i>Retour</a>
+    </div>
+
+    {% if flash_message %}
+        <div class="card" role="status">{{ flash_message }}</div>
+    {% endif %}
+
+    {% if error is defined and error %}
+        <div class="card" style="border-color:#fca5a5; background: color-mix(in oklab, #ef4444, transparent 90%);">{{ error }}</div>
+    {% endif %}
+
+    <div class="card">
+        <form action="" method="post" novalidate class="grid">
+            <div class="col-12" style="display:grid; gap:12px; grid-template-columns: repeat(12, 1fr);">
+                <div class="field" style="grid-column: span 6;">
+                    <label class="label" for="building_id">Bâtiment <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
+                    <select id="building_id" name="building_id" required aria-required="true">
+                        <option value="">Choisir un bâtiment…</option>
+                        {% for b in buildings %}
+                            <option value="{{ b.id }}" {% if data.building_id is defined and data.building_id|default('') == b.id %}selected{% endif %}>{{ b.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="field" style="grid-column: span 6;">
+                    <label class="label" for="room_id">Salle <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
+                    <select id="room_id" name="room_id" required aria-required="true">
+                        <option value="">Choisir une salle…</option>
+                    </select>
+                </div>
+
+                <div class="field" style="grid-column: span 6;">
+                    <label class="label" for="start">Début <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
+                    <input id="start" name="start_datetime" type="datetime-local" required aria-required="true" value="{{ data.start_datetime|default('')|replace({' ': 'T'}) }}" />
+                    <small class="sub">Même jour que la fin (ajusté automatiquement).</small>
+                </div>
+                <div class="field" style="grid-column: span 6;">
+                    <label class="label" for="end">Fin <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
+                    <input id="end" name="end_datetime" type="datetime-local" required aria-required="true" value="{{ data.end_datetime|default('')|replace({' ': 'T'}) }}" />
+                </div>
+
+                <div class="field" style="grid-column: span 12;">
+                    <label class="label" for="comment">Commentaire (optionnel)</label>
+                    <textarea id="comment" name="comment" rows="3" placeholder="Notes, matériel nécessaire, etc.">{{ data.comment|default('') }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12" style="display:flex; justify-content:end; gap:10px;">
+                <a href="/reservations" class="btn">Annuler</a>
+                <button type="submit" name="submit" class="btn primary">Réserver</button>
+            </div>
+        </form>
+    </div>
+
+        {% set selectedRoomId = data.room_id|default('') %}
+            <script type="application/json" id="rooms-json">{{ roomsMap|json_encode|raw }}</script>
+            <script>
+            // Rooms map by building injected from server
+            const ROOMS_BY_BUILDING = JSON.parse(document.getElementById('rooms-json').textContent || '{}');
+        const buildingSelect = document.getElementById('building_id');
+        const roomSelect = document.getElementById('room_id');
+        const url = new URL(window.location.href);
+        const qsBuilding = url.searchParams.get('building_id');
+        const qsRoom = url.searchParams.get('room_id');
+        let preselectedRoom = '{{ selectedRoomId }}';
+        if (!preselectedRoom && qsRoom) preselectedRoom = qsRoom;
+
+        function populateRooms(bid) {
+            roomSelect.innerHTML = '<option value="">Choisir une salle…</option>';
+            const list = ROOMS_BY_BUILDING[bid] || [];
+            list.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r.id;
+                opt.textContent = r.name + (r.capacity ? ` · ${r.capacity} places` : '');
+                if (preselectedRoom && String(r.id) === String(preselectedRoom)) {
+                    opt.selected = true;
+                }
+                roomSelect.appendChild(opt);
+            });
+        }
+
+        buildingSelect.addEventListener('change', (e) => {
+            populateRooms(e.target.value);
+        });
+
+        // On load: if a building is already selected, populate its rooms
+            if (qsBuilding) {
+                buildingSelect.value = qsBuilding;
+            }
+            if (buildingSelect.value) populateRooms(buildingSelect.value);
+    </script>
+</div>
+{% endblock body %}

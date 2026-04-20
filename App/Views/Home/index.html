@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+
+
+{% block body %}
+<!-- Hero / Recherche -->
+<section class="hero">
+	<div class="container">
+		<h1 style="margin:0 0 8px; font-size:28px;">Trouvez la salle parfaite</h1>
+		<p class="sub" style="margin:0 0 14px;">Réservez des espaces de réunion confortables et sans prise de tête.</p>
+
+		<form class="search" aria-label="Recherche de salle" action="/reservations" method="get">
+			<div class="search-row">
+				<label class="field">
+					<span class="label">Bureau / Site</span>
+					<input type="text" name="site" placeholder="Paris, Lyon, Remote..." />
+				</label>
+				<label class="field">
+					<span class="label">Date</span>
+					<input type="date" name="date" />
+				</label>
+				<label class="field">
+					<span class="label">Créneau (début)</span>
+					<input type="time" name="start" />
+				</label>
+				<label class="field">
+					<span class="label">Durée</span>
+					<select name="duration">
+						<option value="30">30 min</option>
+						<option value="60">1 h</option>
+						<option value="90">1 h 30</option>
+						<option value="120">2 h</option>
+						<option value="180">3 h</option>
+					</select>
+				</label>
+				<button class="btn primary" type="submit" disabled aria-disabled="true" title="Bientôt disponible">
+					<i class="bi bi-search" style="margin-right:6px;"></i>
+					Rechercher
+				</button>
+			</div>
+		</form>
+	</div>
+	</section>
+
+	<section class="section">
+		<div class="container grid">
+			<!-- Réservations à venir -->
+			<div class="col-8">
+				<div class="card">
+					<div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">
+						<h2 style="margin:0;">Réservations à venir <span style="color: var(--primary);">{{ reservations|length|default(0) }}</span></h2>
+						<a href="/reservation" class="btn sm primary"><i class="bi bi-plus-circle" style="margin-right:4px;"></i>Nouvelle réservation</a>
+					</div>
+					<div class="upcoming-list">
+						{% if reservations is defined and reservations %}
+							{% for r in reservations %}
+								<article class="booking">
+									{% set uname = r.username is defined and r.username ? r.username : (user is defined and user ? user.username : 'U') %}
+									{% set initials = uname|slice(0,2)|upper %}
+									<div class="avatar" aria-hidden="true">{{ initials }}</div>
+									<div>
+										<div style="display:flex; align-items:flex-start; gap:8px; flex-wrap:nowrap;">
+											<h3 style="margin:0;">{{ r.room|default('Salle') }}</h3>
+											<div class="tags" style="display:inline-flex; gap:6px; flex-wrap:nowrap; align-items:flex-start; margin-left:6px;">
+												{% if r.room_features is defined and r.room_features %}
+													{% set tags = r.room_features|split(',') %}
+													{% for tag in tags|slice(0,2) %}
+														{% set t = tag|trim %}
+														{% if t %}<span class="chip xs">{{ t }}</span>{% endif %}
+													{% endfor %}
+												{% elseif r.comment %}
+													<span class="chip xs">{{ r.comment }}</span>
+												{% endif %}
+											</div>
+										</div>
+										<div class="sub">Réservé par <strong>{{ r.username|default('—') }}</strong></div>
+										<div class="sub">Pour la date du <strong>{{ r.start_datetime|fr_date }}</strong></div>
+										<div class="sub">À {% if r.building_name is defined and r.building_name %}{{ r.building_name }}{% else %}—{% endif %} dès <strong>{{ r.start_datetime|fr_time }}</strong>{% if r.duration_minutes is defined %}, pendant {{ r.duration_minutes|fr_duration }}{% endif %}</div>
+									</div>
+									<div class="actions" style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
+										<a class="btn sm ghost" href="/reservation/edit/{{ r.id }}">Modifier</a>
+										<a class="btn sm ghost" href="/reservation/cancel/{{ r.id }}">Annuler</a>
+									</div>
+								</article>
+							{% endfor %}
+						{% else %}
+							<div class="sub">Aucune réservation à venir pour le moment.</div>
+						{% endif %}
+					</div>
+
+					{% if pagination is defined and pagination.pages|default(1) > 1 %}
+						<nav class="pagination" aria-label="Pagination" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+							{% set page = pagination.page|default(1) %}
+							{% set pages = pagination.pages|default(1) %}
+							<div>
+								<a class="btn sm ghost" href="{% if page > 1 %}/?page={{ page - 1 }}{% else %}#{% endif %}" {% if page <= 1 %}aria-disabled="true" style="pointer-events:none; opacity:.6;"{% endif %}>&laquo; Précédent</a>
+							</div>
+							<div class="sub">Page {{ page }} / {{ pages }}</div>
+							<div>
+								<a class="btn sm ghost" href="{% if page < pages %}/?page={{ page + 1 }}{% else %}#{% endif %}" {% if page >= pages %}aria-disabled="true" style="pointer-events:none; opacity:.6;"{% endif %}>Suivant &raquo;</a>
+							</div>
+						</nav>
+					{% endif %}
+				</div>
+			</div>
+
+			<!-- Suggestions -->
+			<aside class="col-4">
+				<!-- Lieux suggérés (en premier) -->
+				<div class="card">
+					<h2>Lieux suggérés <span style="color: var(--primary);">{{ topBuildings|length|default(0) }}</span></h2>
+					{% if topBuildings is defined and topBuildings %}
+						<div class="rooms">
+							{% for b in topBuildings %}
+								<div id="sb-{{ b.id|default('') }}" style="display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; margin-bottom:6px;">
+									<div style="display:flex; align-items:center; gap:8px; min-width:0;">
+										<div style="display:flex; flex-direction:column; min-width:0;">
+											<div style="display:flex; align-items:baseline; gap:8px; min-width:0;">
+												<strong style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ b.name|default('Bâtiment') }}</strong>
+												<span class="sub" style="white-space:nowrap;">{{ b.code|default('SITE') }}</span>
+											</div>
+											<span class="sub">{{ b.reservations_count|default(0) }} réservation{% if b.reservations_count|default(0) > 1 %}s{% endif %}</span>
+										</div>
+									</div>
+									<div class="actions" style="flex:0 0 auto;">
+										<a class="btn sm ghost" href="/buildings#b-{{ b.id|default('') }}">Voir</a>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% else %}
+						<div class="sub">Aucun lieu suggéré pour le moment.</div>
+					{% endif %}
+				</div>
+
+				<!-- Salles suggérées (après) -->
+				<div class="card" style="margin-top:12px;">
+					<h2>Salles suggérées <span style="color: var(--primary);">{{ topRooms|length|default(0) }}</span></h2>
+					{% if topRooms is defined and topRooms %}
+						<div class="rooms">
+							{% for room in topRooms %}
+								<div style="display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; margin-bottom:6px;">
+									<div style="display:flex; align-items:center; gap:8px; min-width:0;">
+										<div style="display:flex; flex-direction:column; min-width:0;">
+											<div style="display:flex; align-items:baseline; gap:8px; min-width:0;">
+												<strong style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ room.name|default('Salle') }}</strong>
+												<span class="sub" style="white-space:nowrap;">{{ room.code|default('SALLE') }}</span>
+											</div>
+											<span class="sub" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ room.building_name|default('') }}{% if room.capacity is defined and room.capacity %} • {{ room.capacity }} pers{% endif %}</span>
+										</div>
+									</div>
+									<div class="actions" style="flex:0 0 auto;">
+										<a class="btn sm ghost" href="/reservation?building_id={{ room.building_id|default('') }}&room_id={{ room.id|default('') }}">Réserver</a>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% else %}
+						<div class="sub">Aucune suggestion disponible.</div>
+					{% endif %}
+				</div>
+
+				{# CTA under suggestions #}
+				{% set tb = totalBuildings|default(0) %}
+				{% set tr = totalRooms|default(0) %}
+				{% set tb_label = tb > 1 ? 'lieux' : 'lieu' %}
+				{% set tr_label = tr > 1 ? 'salles' : 'salle' %}
+				<div style="margin-top:10px;">
+					<a class="btn primary block" href="/buildings">Voir les {{ tb }} {{ tb_label }} et {{ tr }} {{ tr_label }}</a>
+				</div>
+			</aside>
+		</div>
+	</section>
+{% endblock %}

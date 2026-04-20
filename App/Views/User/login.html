@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="container section" style="max-width:720px; margin: 0 auto;">
+    <div class="d-flex align-items-center justify-content-between mb-3" style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+        <h1 class="h4" style="margin:0;">Connexion</h1>
+        <div class="sub">Pas encore de compte ? <a href="/register">Créer un compte</a></div>
+    </div>
+
+    {% if flash_message %}
+        <div class="card" style="border-left: 3px solid var(--red-500); background: color-mix(in oklab, var(--red-500) 8%, var(--bg));">
+            <div>{{ flash_message }}</div>
+        </div>
+    {% endif %}
+    {% if error is defined and error %}
+        <div class="card" style="border-left: 3px solid var(--red-500); background: color-mix(in oklab, var(--red-500) 8%, var(--bg));">
+            <div>{{ error }}</div>
+        </div>
+    {% endif %}
+
+        <div class="card">
+            <form method="post" action="" novalidate class="form-vertical">
+            <div class="field">
+                <label for="email">Email <span aria-hidden="true" title="obligatoire">*</span></label>
+                <input id="email" name="email" type="email" required aria-required="true" placeholder="vous@exemple.fr" autocomplete="email" />
+                <div class="hint">Utilisez l'adresse fournie lors de l'inscription.</div>
+            </div>
+            <div class="field">
+                <label for="password">Mot de passe <span aria-hidden="true" title="obligatoire">*</span></label>
+                <input id="password" name="password" type="password" required aria-required="true" placeholder="••••••••" autocomplete="current-password" />
+                <div class="hint"><a href="#" aria-disabled="true" style="pointer-events:none; opacity:.6;">Mot de passe oublié ?</a></div>
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center; justify-content:space-between;">
+                <label style="display:flex; gap:8px; align-items:center;">
+                    <input type="checkbox" name="remember" />
+                    <span class="sub">Se souvenir de moi</span>
+                </label>
+                <div class="sub">Besoin d'un compte ? <a href="/register">Inscription</a></div>
+            </div>
+
+            <div style="margin-top:12px;">
+                <button type="submit" name="submit" class="btn primary block">Se connecter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

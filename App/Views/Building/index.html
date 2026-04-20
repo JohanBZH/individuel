@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Salles par bâtiment{% endblock %}
+
+{% block body %}
+<div class="container section">
+  <h1 class="h4" style="margin:0 0 14px;">Salles par bâtiment</h1>
+
+  <div class="grid">
+    {% for b in buildings %}
+      <div class="col-12">
+        <div id="b-{{ b.id }}" class="card" style="display:grid; gap:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="chip"><i class="bi bi-building" style="margin-right:6px;"></i>{{ b.code }}</div>
+              <h2 class="h5" style="margin:0;">{{ b.name }}</h2>
+            </div>
+          </div>
+          {% set rooms = roomsByBuilding[b.id]|default([]) %}
+          {% if rooms is empty %}
+            <div class="sub">Aucune salle référencée dans ce bâtiment.</div>
+          {% else %}
+            <div style="display:grid; gap:6px;">
+              {% for r in rooms %}
+                <div id="r-{{ r.id }}" style="display:grid; grid-template-columns: 1.2fr auto auto; align-items:center; gap:10px; border:1px solid var(--border); border-radius:12px; padding:10px; background: var(--bg);">
+                  <div style="display:grid; gap:4px;">
+                    <div style="font-weight:600;">{{ r.name }}</div>
+                    <div class="sub" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                      <span class="sub" style="display:inline-flex; align-items:center;"><i class="bi bi-people" style="margin-right:6px;"></i>{{ r.capacity|default('—') }} places</span>
+                      {% if r.features %}
+                        {% for tag in r.features|split(',') %}
+                          {% set t = tag|trim %}
+                          {% if t %}<span class="chip">{{ t }}</span>{% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="sub" style="justify-self:end;">{{ r.code }}</div>
+                  <div class="actions" style="justify-self:end;">
+                    <a class="btn" href="/reservation?building_id={{ b.id }}&room_id={{ r.id }}">Réserver</a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}
