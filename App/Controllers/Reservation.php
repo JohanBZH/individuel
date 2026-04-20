@@ -49,14 +49,16 @@ class Reservation extends \Core\Controller
 
             // enforce same calendar date for end as start
             try {
-                $dtStartTmp = new \DateTime($start);
-                $dtEndTmp = new \DateTime($end);
+                $dtStart = new \DateTime($start);
+                $dtEnd = new \DateTime($end);
                 // Force end date to carry the same Y-m-d as start
-                $end = $dtStartTmp->format('Y-m-d') . ' ' . $dtEndTmp->format('H:i:s');
+                $end = $dtStart->format('Y-m-d') . ' ' . $dtEnd->format('H:i:s');
                 $f['end_datetime'] = $end;
+                
+                // Also format start exactly to SQL datetime format
+                $start = $dtStart->format('Y-m-d H:i:s');
+                $f['start_datetime'] = $start;
             } catch (\Exception $e) { /* handled by validation below */ }
-
-            // validate start < end (same day enforced above)
             try {
                 $dtStart = new \DateTime($start);
                 $dtEnd = new \DateTime($end);
@@ -126,14 +128,12 @@ class Reservation extends \Core\Controller
         if (empty($res)) { throw new \Exception('Réservation introuvable'); }
         $res = $res[0];
 
-        // Note: For this demo, allow any authenticated user to edit.
-        // If you need to restrict to owner/admin, re-enable the check below.
-        // $user = $_SESSION['user'];
-        // $isOwner = ($res['user_id'] == $user['id']);
-        // $isAdmin = isset($user['is_admin']) && $user['is_admin'];
-        // if (!$isOwner && !$isAdmin) {
-        //     throw new \Exception('Vous ne pouvez pas modifier cette réservation.');
-        // }
+        $user = $_SESSION['user'];
+        $isOwner = ($res['user_id'] == $user['id']);
+        $isAdmin = isset($user['is_admin']) && $user['is_admin'];
+        if (!$isOwner && !$isAdmin) {
+            throw new \Exception('Vous ne pouvez pas modifier cette réservation.');
+        }
 
         $buildings = Buildings::getAll();
         $roomsMap = Rooms::getMapByBuilding();
@@ -163,6 +163,9 @@ class Reservation extends \Core\Controller
                 $dtEndTmp = new \DateTime($end);
                 $end = $dtStartTmp->format('Y-m-d') . ' ' . $dtEndTmp->format('H:i:s');
                 $f['end_datetime'] = $end;
+
+                $start = $dtStartTmp->format('Y-m-d H:i:s');
+                $f['start_datetime'] = $start;
             } catch (\Exception $e) { }
 
             try {
@@ -319,8 +322,8 @@ class Reservation extends \Core\Controller
         $isAdmin = isset($user['is_admin']) && $user['is_admin'];
 
         if (!$isOwner && !$isAdmin) {
-            $_SESSION['flash_message'] = 'Vous ne pouvez pas annuler cette réservation.';
-            header('Location: /myreservations');
+            $_SESSION['flash_message'] = "Accès non autorisé, contactez l'administrateur.rice";
+            header('Location: /');
             return;
         }
 

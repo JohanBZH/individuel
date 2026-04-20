@@ -77,10 +77,13 @@
 										<div class="sub">Pour la date du <strong>{{ r.start_datetime|fr_date }}</strong></div>
 										<div class="sub">À {% if r.building_name is defined and r.building_name %}{{ r.building_name }}{% else %}—{% endif %} dès <strong>{{ r.start_datetime|fr_time }}</strong>{% if r.duration_minutes is defined %}, pendant {{ r.duration_minutes|fr_duration }}{% endif %}</div>
 									</div>
+									{% set canEdit = user is defined and user and (user.is_admin or r.user_id == user.id) %}
+									{% if canEdit %}
 									<div class="actions" style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
 										<a class="btn sm ghost" href="/reservation/edit/{{ r.id }}">Modifier</a>
 										<a class="btn sm ghost" href="/reservation/cancel/{{ r.id }}">Annuler</a>
 									</div>
+									{% endif %}
 								</article>
 							{% endfor %}
 						{% else %}
