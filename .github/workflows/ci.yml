@@ -10,13 +10,23 @@ jobs:
   test:
     name: Run Tests & Build
     runs-on: ubuntu-latest
-    
+
+    # All secrets available to every step in this job
+    env:
+      DB_HOST: 127.0.0.1
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+
     services:
       mariadb:
         image: mariadb:10.5
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: meetrooms
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
+          MYSQL_USER: ${{ secrets.DB_USER }}
+          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -49,10 +59,8 @@ jobs:
         npm install
         npm run build --if-present
 
-    - name: Setup Environment
-      run: |
-        cp .env.example .env
-        mysql -h 127.0.0.1 -uroot -proot meetrooms < sql/init_db.sql
+    - name: Seed test database
+      run: mysql -h 127.0.0.1 -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" < sql/init_db.sql
 
     - name: Execute tests
       run: ./vendor/bin/phpunit tests/
