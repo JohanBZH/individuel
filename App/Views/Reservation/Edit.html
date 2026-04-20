@@ -6,7 +6,7 @@
 <div class="container section">
     <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
         <h1 class="h4" style="margin:0;">Modifier la réservation</h1>
-        <a href="javascript:history.back()" class="btn ghost"><i class="bi bi-arrow-left" style="margin-right:6px;"></i>Retour</a>
+        <a href="/myreservations" class="btn ghost"><i class="bi bi-arrow-left" style="margin-right:6px;"></i>Retour</a>
     </div>
 
     {% if error is defined and error %}
@@ -35,7 +35,6 @@
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="start">Début</label>
                     <input id="start" name="start_datetime" type="datetime-local" required aria-required="true" value="{{ data.start_datetime|default('')|replace({' ': 'T'}) }}" />
-                    <small class="sub">Même jour que la fin (ajusté automatiquement).</small>
                 </div>
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="end">Fin</label>

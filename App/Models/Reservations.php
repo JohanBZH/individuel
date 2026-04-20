@@ -184,17 +184,23 @@ class Reservations extends Model {
 
     public static function isConflicting($roomOrId, $start, $end) {
         $db = static::getDB();
+        $roomId = is_numeric($roomOrId) ? (int)$roomOrId : null;
+        $roomName = '';
 
-        // If a numeric room id is provided, check by room_id; otherwise fallback to room name
-        if (is_numeric($roomOrId)) {
-            $stmt = $db->prepare('SELECT COUNT(*) as c FROM reservations WHERE room_id = :room_id AND (start_datetime < :end AND end_datetime > :start)');
-            $stmt->bindParam(':room_id', $roomOrId);
+        if ($roomId) {
+            $stmtName = $db->prepare('SELECT name FROM rooms WHERE id = ?');
+            $stmtName->execute([$roomId]);
+            $roomName = $stmtName->fetchColumn() ?: '';
         } else {
-            $stmt = $db->prepare('SELECT COUNT(*) as c FROM reservations WHERE room = :room AND (start_datetime < :end AND end_datetime > :start)');
-            $stmt->bindParam(':room', $roomOrId);
+            $roomName = $roomOrId;
         }
-        $stmt->bindParam(':start', $start);
-        $stmt->bindParam(':end', $end);
+
+        $sql = 'SELECT COUNT(*) as c FROM reservations WHERE (room_id = :room_id OR (room = :room AND room != "")) AND (start_datetime < :end AND end_datetime > :start)';
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':room_id', $roomId);
+        $stmt->bindValue(':room', $roomName);
+        $stmt->bindValue(':start', $start);
+        $stmt->bindValue(':end', $end);
         $stmt->execute();
 
         $res = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -264,17 +270,24 @@ class Reservations extends Model {
 
     public static function isConflictingExcept($roomOrId, $start, $end, int $excludeId) {
         $db = static::getDB();
+        $roomId = is_numeric($roomOrId) ? (int)$roomOrId : null;
+        $roomName = '';
 
-        if (is_numeric($roomOrId)) {
-            $stmt = $db->prepare('SELECT COUNT(*) as c FROM reservations WHERE id <> :exclude AND room_id = :room_id AND (start_datetime < :end AND end_datetime > :start)');
-            $stmt->bindParam(':room_id', $roomOrId);
+        if ($roomId) {
+            $stmtName = $db->prepare('SELECT name FROM rooms WHERE id = ?');
+            $stmtName->execute([$roomId]);
+            $roomName = $stmtName->fetchColumn() ?: '';
         } else {
-            $stmt = $db->prepare('SELECT COUNT(*) as c FROM reservations WHERE id <> :exclude AND room = :room AND (start_datetime < :end AND end_datetime > :start)');
-            $stmt->bindParam(':room', $roomOrId);
+            $roomName = $roomOrId;
         }
+
+        $sql = 'SELECT COUNT(*) as c FROM reservations WHERE id <> :exclude AND (room_id = :room_id OR (room = :room AND room != "")) AND (start_datetime < :end AND end_datetime > :start)';
+        $stmt = $db->prepare($sql);
         $stmt->bindValue(':exclude', $excludeId, \PDO::PARAM_INT);
-        $stmt->bindParam(':start', $start);
-        $stmt->bindParam(':end', $end);
+        $stmt->bindValue(':room_id', $roomId);
+        $stmt->bindValue(':room', $roomName);
+        $stmt->bindValue(':start', $start);
+        $stmt->bindValue(':end', $end);
         $stmt->execute();
         $res = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $res['c'] > 0;

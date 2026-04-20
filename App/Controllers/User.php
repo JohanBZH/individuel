@@ -118,6 +118,8 @@ class User extends \Core\Controller
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'email' => $user['email'],
+                'is_admin' => isset($user['is_admin']) ? (bool)$user['is_admin'] : ($user['email'] === 'admin@admin.fr')
             );
 
             return true;

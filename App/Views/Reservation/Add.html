@@ -6,7 +6,7 @@
 <div class="container section">
     <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
         <h1 class="h4" style="margin:0;">Nouvelle réservation</h1>
-        <a href="javascript:history.back()" class="btn ghost"><i class="bi bi-arrow-left" style="margin-right:6px;"></i>Retour</a>
+        <a href="/myreservations" class="btn ghost"><i class="bi bi-arrow-left" style="margin-right:6px;"></i>Retour</a>
     </div>
 
     {% if flash_message %}
@@ -39,7 +39,6 @@
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="start">Début <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
                     <input id="start" name="start_datetime" type="datetime-local" required aria-required="true" value="{{ data.start_datetime|default('')|replace({' ': 'T'}) }}" />
-                    <small class="sub">Même jour que la fin (ajusté automatiquement).</small>
                 </div>
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="end">Fin <span aria-hidden="true" title="Requis" style="color:var(--primary);">*</span></label>
@@ -53,7 +52,7 @@
             </div>
 
             <div class="col-12" style="display:flex; justify-content:end; gap:10px;">
-                <a href="/reservations" class="btn">Annuler</a>
+                <a href="/myreservations" class="btn">Annuler</a>
                 <button type="submit" name="submit" class="btn primary">Réserver</button>
             </div>
         </form>
@@ -95,6 +94,21 @@
                 buildingSelect.value = qsBuilding;
             }
             if (buildingSelect.value) populateRooms(buildingSelect.value);
+
+        // Auto-fill end date + 1 hour when start date is picked
+        const startInput = document.getElementById('start');
+        const endInput = document.getElementById('end');
+        startInput.addEventListener('change', function() {
+            if (this.value && !endInput.value) {
+                let d = new Date(this.value);
+                if (!isNaN(d.getTime())) {
+                    d.setHours(d.getHours() + 1);
+                    let tzoffset = d.getTimezoneOffset() * 60000;
+                    let localISOTime = (new Date(d.getTime() - tzoffset)).toISOString().slice(0, 16);
+                    endInput.value = localISOTime;
+                }
+            }
+        });
     </script>
 </div>
 {% endblock body %}

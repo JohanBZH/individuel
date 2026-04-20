@@ -19,6 +19,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
+  `is_admin` boolean DEFAULT FALSE,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
@@ -74,10 +75,10 @@ ALTER TABLE `reservations` ADD CONSTRAINT `fk_reservations_room` FOREIGN KEY (`r
 SET FOREIGN_KEY_CHECKS=1;
 
 -- Seed users
-INSERT INTO users (username, email, password, salt) VALUES
-('Admin', 'admin@admin.fr', SHA2(CONCAT('admin','dev-admin-salt-2025'), 256), 'dev-admin-salt-2025'),
-('Alice', 'alice@example.com', SHA2(CONCAT('password','dev-salt-1'), 256), 'dev-salt-1'),
-('Bob', 'bob@example.com', SHA2(CONCAT('password','dev-salt-2'), 256), 'dev-salt-2');
+INSERT INTO users (username, email, password, salt, is_admin) VALUES
+('Admin', 'admin@admin.fr', SHA2(CONCAT('admin','dev-admin-salt-2025'), 256), 'dev-admin-salt-2025', 1),
+('Alice', 'alice@example.com', SHA2(CONCAT('password','dev-salt-1'), 256), 'dev-salt-1', 0),
+('Bob', 'bob@example.com', SHA2(CONCAT('password','dev-salt-2'), 256), 'dev-salt-2', 0);
 
 -- Seed buildings (10)
 INSERT INTO buildings (id, code, name) VALUES
