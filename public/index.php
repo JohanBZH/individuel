@@ -58,7 +58,8 @@ try {
             header('Location: /login');
             exit;
         case 'Vous ne pouvez pas modifier cette réservation.':
-            header('Location: /login');
+            $_SESSION['flash_message'] = "Accès non autorisé, contactez l'administrateur.rice";
+            header('Location: /');
             exit;
         default:
             throw $e;

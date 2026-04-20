@@ -88,5 +88,32 @@
   </div>
 
   {% block javascript %}{% endblock %}
+  <script>
+    (function() {
+      const toggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+      
+      // Load saved theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        toggle.checked = true;
+        html.setAttribute('data-bs-theme', 'dark');
+      }
+      
+      // On toggle
+      toggle.addEventListener('change', function() {
+        if (this.checked) {
+          localStorage.setItem('theme', 'dark');
+          html.setAttribute('data-bs-theme', 'dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+          html.removeAttribute('data-bs-theme');
+        }
+      });
+      
+      // Prevent Flash of Unstyled Content by setting data-bs-theme as early as possible
+      // This is a quick script placed before body-end for functionality.
+    })();
+  </script>
 </body>
 </html>

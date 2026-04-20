@@ -1,0 +1,77 @@
+name: MeetRooms CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "dev", "recette", "prod" ]
+  pull_request:
+    branches: [ "dev", "recette", "prod" ]
+
+jobs:
+  test:
+    name: Run Tests & Build
+    runs-on: ubuntu-latest
+
+    # All secrets available to every step in this job
+    env:
+      DB_HOST: 127.0.0.1
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+
+    services:
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
+          MYSQL_USER: ${{ secrets.DB_USER }}
+          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: pdo_mysql, intl, mbstring
+        coverage: none
+
+    - name: Install PHP dependencies
+      run: composer update --no-progress
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install Frontend dependencies & Build SCSS
+      run: |
+        npm install
+        npm run build --if-present
+
+    - name: Seed test database
+      run: mysql -h 127.0.0.1 -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" < sql/init_db.sql
+
+    - name: Execute tests
+      run: ./vendor/bin/phpunit tests/
+
+  # Future task for automated deployment can be added here
+  deploy:
+    name: Deploy to Environment
+    needs: test
+    runs-on: ubuntu-latest
+    # Only run deploy on direct push to env branches, not on PRs
+    if: github.event_name == 'push' 
+    steps:
+      - name: Dummy Deploy Step
+        run: echo "Deploying branch ${{ github.ref_name }} to target server..."
