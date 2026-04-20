@@ -1,0 +1,91 @@
+services:
+  # ==============================
+  # ENV: DEV (8084)
+  # ==============================
+  web_dev:
+    build: .
+    container_name: meetrooms_web_dev
+    ports:
+      - "8084:80"
+    environment:
+      - DB_HOST=db_dev
+      - DB_NAME=meetrooms
+      - DB_USER=meetrooms_user
+      - DB_PASSWORD=meetrooms_pass
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db_dev
+
+  db_dev:
+    image: mariadb:10.11
+    container_name: meetrooms_db_dev
+    environment:
+      - MYSQL_ROOT_PASSWORD=meetrooms_root
+      - MYSQL_DATABASE=meetrooms
+      - MYSQL_USER=meetrooms_user
+      - MYSQL_PASSWORD=meetrooms_pass
+    volumes:
+      - db_dev_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  # ==============================
+  # ENV: RECETTE (8085)
+  # ==============================
+  web_recette:
+    build: .
+    container_name: meetrooms_web_recette
+    ports:
+      - "8085:80"
+    environment:
+      - DB_HOST=db_recette
+      - DB_NAME=meetrooms
+      - DB_USER=meetrooms_user
+      - DB_PASSWORD=meetrooms_pass
+    depends_on:
+      - db_recette
+
+  db_recette:
+    image: mariadb:10.11
+    container_name: meetrooms_db_recette
+    environment:
+      - MYSQL_ROOT_PASSWORD=meetrooms_root
+      - MYSQL_DATABASE=meetrooms
+      - MYSQL_USER=meetrooms_user
+      - MYSQL_PASSWORD=meetrooms_pass
+    volumes:
+      - db_recette_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  # ==============================
+  # ENV: PROD (8086)
+  # ==============================
+  web_prod:
+    build: .
+    container_name: meetrooms_web_prod
+    ports:
+      - "8086:80"
+    environment:
+      - DB_HOST=db_prod
+      - DB_NAME=meetrooms
+      - DB_USER=meetrooms_user
+      - DB_PASSWORD=meetrooms_pass
+    depends_on:
+      - db_prod
+
+  db_prod:
+    image: mariadb:10.11
+    container_name: meetrooms_db_prod
+    environment:
+      - MYSQL_ROOT_PASSWORD=meetrooms_root
+      - MYSQL_DATABASE=meetrooms
+      - MYSQL_USER=meetrooms_user
+      - MYSQL_PASSWORD=meetrooms_pass
+    volumes:
+      - db_prod_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+volumes:
+  db_dev_data:
+  db_recette_data:
+  db_prod_data:

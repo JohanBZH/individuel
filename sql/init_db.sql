@@ -5,9 +5,9 @@
 -- - 100 reservations with dates relative to NOW()
 
 -- Drop and recreate database for a clean import
-DROP DATABASE IF EXISTS `vide_grenier`;
-CREATE DATABASE IF NOT EXISTS `vide_grenier` CHARACTER SET utf8;
-USE `vide_grenier`;
+DROP DATABASE IF EXISTS `meetrooms`;
+CREATE DATABASE IF NOT EXISTS `meetrooms` CHARACTER SET utf8;
+USE `meetrooms`;
 
 SET FOREIGN_KEY_CHECKS=0;
 
