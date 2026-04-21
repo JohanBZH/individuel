@@ -63,15 +63,9 @@ jobs:
       run: mysql -h 127.0.0.1 -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" < sql/init_db.sql
 
     - name: Execute tests
-      run: ./vendor/bin/phpunit tests/
-
-  # Future task for automated deployment can be added here
-  deploy:
-    name: Deploy to Environment
-    needs: test
-    runs-on: ubuntu-latest
-    # Only run deploy on direct push to env branches, not on PRs
-    if: github.event_name == 'push' 
-    steps:
-      - name: Dummy Deploy Step
-        run: echo "Deploying branch ${{ github.ref_name }} to target server..."
+      run: |
+        if [ "${{ github.ref_name }}" = "recette" ] || [ "${{ github.ref_name }}" = "prod" ]; then
+          ./vendor/bin/phpunit --fail-on-warning --fail-on-risky tests/
+        else
+          ./vendor/bin/phpunit tests/
+        fi

@@ -1,0 +1,27 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [ "prod" ]
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    
+    # We only want this to run after the CI workflow has passed.
+    # However, since workflows trigger independently on push, 
+    # we can use workflow_run or simply rely on branch protection 
+    # ensuring only code with passing CI gets merged here.
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup SSH Context
+      run: echo "In a real scenario, we setup SSH private keys here using secrets.SSH_PRIVATE_KEY"
+      
+    - name: Execute Deployment Script
+      run: |
+        echo "Executing remote deployment..."
+        echo "ssh user@production-server 'cd /var/www/meetrooms && git pull origin prod && composer install --no-dev --optimize-autoloader && npm install && npm run build && php migrate.php'"
+        echo "✅ Deployment finished successfully."
