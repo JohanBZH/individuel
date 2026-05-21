@@ -1,0 +1,32 @@
+name: Individuel - recette
+services:
+  # ==============================
+  # ENV: RECETTE (8085)
+  # ==============================
+  web_recette:
+    build: .
+    container_name: meetrooms_web_recette
+    ports:
+      - "8085:80"
+    environment:
+      - DB_HOST=db_recette
+      - DB_NAME=meetrooms
+      - DB_USER=meetrooms_user
+      - DB_PASSWORD=meetrooms_pass
+    depends_on:
+      - db_recette
+
+  db_recette:
+    image: mariadb:10.11
+    container_name: meetrooms_db_recette
+    environment:
+      - MYSQL_ROOT_PASSWORD=meetrooms_root
+      - MYSQL_DATABASE=meetrooms
+      - MYSQL_USER=meetrooms_user
+      - MYSQL_PASSWORD=meetrooms_pass
+    volumes:
+      - db_recette_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+volumes:
+  db_recette_data:

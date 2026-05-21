@@ -1,0 +1,37 @@
+name: Individuel - dev
+
+services:
+  # ==============================
+  # ENV: DEV (8084)
+  # ==============================
+  web_dev:
+    build: .
+    container_name: meetrooms_web_dev
+    ports:
+      - "${PORT}:80"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db_dev
+
+  db_dev:
+    image: mariadb:10.11
+    container_name: meetrooms_db_dev
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - db_dev_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  
+volumes:
+  db_dev_data:
+
