@@ -6,8 +6,22 @@
          executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true">
     <testsuites>
+        <testsuite name="Unit Tests">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration Tests">
+            <directory>tests/Integration</directory>
+        </testsuite>
         <testsuite name="Feature Tests">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+    
+    <!-- Environment variables for testing -->
+    <php>
+        <env name="DB_HOST" value="localhost" />
+        <env name="DB_NAME" value="meetrooms_test" />
+        <env name="DB_USER" value="root" />
+        <env name="DB_PASSWORD" value="" />
+    </php>
 </phpunit>
