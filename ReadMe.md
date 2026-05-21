@@ -6,35 +6,44 @@ Il vise à garantir que le code déployé en production `prod` est toujours cert
 ---
 
 ## 1. Branche `prod` (Production)
+
 C'est la branche la plus critique. Tout ce qui y atterrit est expédié automatiquement sur le serveur via le pipeline `.github/workflows/deploy.yml`.
 
 **Réglages GitHub (Branch Protection Rules) :**
+
 - [x] **Require a pull request before merging**
-  - *Require approvals* : 1 minimum (idéalement le Tech Lead ou l'Architecte).
+  - _Require approvals_ : 1 minimum (idéalement le Tech Lead ou l'Architecte).
 - [x] **Require status checks to pass before merging**
-  - *Require branches to be up to date before merging* : Activé.
+  - _Require branches to be up to date before merging_ : Activé.
   - S'assurer que le workflow `Run Tests & Build` est coché et **doit** être vert.
 - [x] **Do not allow bypassing the above settings**
-  - Même les administrateurs du dépôt ne peuvent pas contourner cette règle. Cela protège contre les *force pushes* par erreur.
+  - Même les administrateurs du dépôt ne peuvent pas contourner cette règle. Cela protège contre les _force pushes_ par erreur.
 - [x] **Restrict who can push to matching branches**
   - Spécifiez uniquement les Mainteneurs ou une équipe "DevOps". Pas de Push direct.
 
 ## 2. Branche `recette` (Staging / Pre-prod)
-Cette branche rassemble les fonctionnalités validées avant une release. Elle correspond au serveur de test client. 
+
+Cette branche rassemble les fonctionnalités validées avant une release. Elle correspond au serveur de test client.
 
 **Réglages GitHub :**
+
 - [x] **Require a pull request before merging**
   - Pas d'approbation stricte obligatoire (pragmatisme pour les petites équipes), mais la PR force la formalisation de la release.
 - [x] **Require status checks to pass before merging**
-  - Tests unitaires stricts (`--fail-on-warning` est actif sur cette branche dans le CI).
+  - Dans le champ _"Add required status check"_, saisir : **`Run Tests & Build`**
+  - C'est le nom du job défini dans `.github/workflows/ci.yml` (`jobs.test.name`).
+  - Tests unitaires stricts (`--fail-on-warning` actif sur cette branche).
 - Le Push direct doit être interdit ou formellement déconseillé. On fusionne toujours depuis `dev`.
 
 ## 3. Branche `dev` (Développement Actif)
+
 C'est la branche d'intégration où l'équipe fusionne son travail au quotidien en provenance des `feature/*`.
 
 **Réglages GitHub :**
+
 - [x] **Require status checks to pass before merging**
-  - Le pipeline CI de test standard s'y exécute. Il gère seulement la "casse franche" (pas de fail-on-warning).
+  - Dans le champ _"Add required status check"_, saisir : **`Run Tests & Build`**
+  - C'est le même job que pour `recette`, mais sans `--fail-on-warning`.
 - Les Push directs sont traditionnellement déconseillés, mais pour les "hotfixes" mineurs de développement, on peut autoriser le Tech Lead à push dessus pour gagner du temps.
 
 ---
