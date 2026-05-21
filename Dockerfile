@@ -26,6 +26,9 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Copy project files (will be overridden by volume in dev, but built-in for recette/prod)
 COPY . /var/www/html/
 
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
 # Ensure proper permissions
 RUN chown -R www-data:www-data /var/www/html
 
