@@ -7,6 +7,10 @@ node_modules/
 .env.*
 !.env.example
 
+# BMad personal config
+_bmad/config.user.toml
+_bmad/custom/config.user.toml
+
 # OS generated files
 .DS_Store
 .DS_Store?
