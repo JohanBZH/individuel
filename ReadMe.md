@@ -1,7 +1,6 @@
-# Recommandations de Protection des Branches (GitFlow)
+# Meetrooms
 
-Ce document détaille la stratégie de protection recommandée pour le projet **MeetRooms** sur GitHub.
-Il vise à garantir que le code déployé en production `prod` est toujours certifié par l'environnement de recette et testé avec succès, tout en gardant une souplesse pour les développeurs.
+Ce document détaille la procédure de déploiement.
 
 ---
 
