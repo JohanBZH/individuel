@@ -1,0 +1,26 @@
+name: Create Image docker for Recette
+
+on:
+  push:
+    branches: ["recette"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build et Push de l'image Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_HUB_USER }}/meetrooms-web:latest
+            ${{ secrets.DOCKER_HUB_USER }}/meetrooms-web:${{ github.sha }}
