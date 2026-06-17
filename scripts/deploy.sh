@@ -8,11 +8,11 @@ if [ "$(git branch --show-current)" != "prod" ]; then
   exit 1
 fi
 
-echo "Pulling latest changes from git..."
-git pull origin prod
+echo "Pulling latest image from DockerHub..."
+docker compose --file docker-compose.prod.yml --env-file .env.prod pull
 
-echo "Building Docker image..."
-docker compose --file docker-compose.prod.yml --env-file .env.prod up -d --build
+echo "Starting containers..."
+docker compose --file docker-compose.prod.yml --env-file .env.prod up -d
 
 echo ""
 echo "✅ Deployment complete!"

@@ -4,7 +4,7 @@ services:
   # ENV: PROD (8086)
   # ==============================
   web_prod:
-    build: .
+    image: ${DOCKER_HUB_USER}/meetrooms-web:latest
     container_name: meetrooms_web_prod
     ports:
       - "${PORT}:80"
