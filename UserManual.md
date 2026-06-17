@@ -1,24 +1,63 @@
-# MeetRooms - Manuel Utilisateur
+# MeetRooms — Manuel Utilisateur
 
-Bienvenue sur le système de réservation MeetRooms !
+Bienvenue sur MeetRooms, l'outil interne de réservation de salles de réunion du groupe AssurNova.
 
-## 1. Création de compte et Connexion
-- Rendez-vous sur la page d'accueil de MeetRooms.
-- Cliquez sur **"Créer un compte"** si c'est votre première visite, ou **"Se connecter"** si vous possédez déjà des identifiants (comme `alice@example.com` / `password`).
+---
 
-## 2. Thème Visuel
-- En haut à droite, un interrupteur vous permet de passer du mode clair au mode sombre.
-- Votre préférence est automatiquement sauvegardée dans votre navigateur.
+## 1. Créer un compte
 
-## 3. Réserver une salle
-1. Accédez à la page d'accueil ou cliquez sur **"Explorer"**.
-2. Parcourez la disponibilité des salles.
-3. Remplissez le formulaire de réservation en vérifiant que les horaires ne sont pas déjà occupés. En cas de conflit, le système vous avertira et annulera l'action.
+Si c'est votre première connexion, cliquez sur **"Créer un compte"** depuis la page d'accueil et renseignez votre nom, adresse e-mail et mot de passe.
 
-## 4. Gérer ses réservations
-- Cliquez sur le menu de votre profil ou sur le lien **"Mes réservations"** dans le menu principal pour voir vos créneaux futurs et passés.
-- Vous pouvez **Modifier** ou **Annuler** uniquement les réservations qui vous appartiennent.
+![Formulaire d'inscription](docs/inscription.png)
 
-## 5. Administrateurs
-- Les administrateurs peuvent voir l'intégralité du planning.
-- Ils possèdent également la possibilité de modifier ou annuler toute réservation pour libérer des salles en cas de désistement non renseigné.
+---
+
+## 2. Se connecter
+
+Rendez-vous sur la page d'accueil et cliquez sur **"Se connecter"**. Saisissez votre adresse e-mail et votre mot de passe.
+
+> Compte de démonstration : `alice@example.com` / `password`
+
+![Page de connexion](docs/Connexion.png)
+
+---
+
+## 3. Thème visuel
+
+En haut à droite de chaque page, un interrupteur vous permet de basculer entre le mode clair et le mode sombre. Votre préférence est automatiquement sauvegardée dans votre navigateur et reste active d'une page à l'autre.
+
+---
+
+## 4. Réserver une salle
+
+1. Depuis la page d'accueil, cliquez sur **"Explorer"** ou sur le bouton **"Nouvelle réservation"**.
+2. Sélectionnez le bâtiment puis la salle souhaitée.
+3. Choisissez la date et l'heure de début — l'heure de fin est automatiquement préremplie à +1h.
+4. Ajustez l'heure de fin si nécessaire, puis ajoutez un commentaire optionnel.
+5. Cliquez sur **"Réserver"** pour confirmer.
+
+> En cas de conflit avec une réservation existante, le système vous en informe et annule l'action.
+
+![Formulaire de nouvelle réservation](docs/NouvelleReservation.png)
+
+---
+
+## 5. Gérer ses réservations
+
+Cliquez sur **"Mes réservations"** dans le menu principal pour consulter l'ensemble de vos créneaux, passés et à venir.
+
+![Vue de mes réservations](docs/mesReservations.png)
+
+Depuis cette liste, vous pouvez **Modifier** ou **Annuler** uniquement vos propres réservations. Cliquez sur une réservation pour en voir le détail complet.
+
+![Détail d'une réservation](docs/Detailreservation.png)
+
+---
+
+## 6. Administrateurs
+
+Les administrateurs disposent de droits étendus :
+
+- Accès au planning global de toutes les salles et de tous les utilisateurs.
+- Possibilité de modifier ou annuler n'importe quelle réservation (utile pour libérer une salle en cas de désistement non signalé).
+- Accès à une vue d'administration dédiée listant toutes les réservations.
