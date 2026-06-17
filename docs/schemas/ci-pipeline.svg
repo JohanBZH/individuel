@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="490" viewBox="0 0 900 490" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+    <polygon points="0 0, 8 3.5, 0 7" fill="#9CA3AF"/>
+  </marker>
+</defs>
+
+<rect width="900" height="490" fill="#FFFFFF"/>
+
+<!-- Title -->
+<text x="450" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="#111827">Pipeline CI/CD – GitHub Actions</text>
+<text x="450" y="57" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#6B7280">Deux workflows automatises : tests en continu et publication d image Docker</text>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SWIMLANE 1 : ci.yml -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<rect x="20" y="72" width="860" height="175" fill="#F8FAFC" rx="8" stroke="#E2E8F0" stroke-width="1.5"/>
+
+<!-- Header -->
+<path d="M28,72 L872,72 Q880,72 880,80 L880,108 L20,108 L20,80 Q20,72 28,72 Z" fill="#1E3A5F"/>
+<text x="90" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">ci.yml</text>
+<text x="480" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#93C5FD">Declencheur : push ou pull_request sur dev, recette ou prod</text>
+
+<!-- Steps row -->
+<!-- Step 1: Checkout -->
+<rect x="35" y="120" width="115" height="60" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="92" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8">Checkout</text>
+<text x="92" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">actions/checkout</text>
+<text x="92" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">@v4</text>
+<line x1="150" y1="150" x2="168" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 2: PHP + MariaDB -->
+<rect x="170" y="120" width="140" height="60" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="240" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8">PHP 8.2 + MariaDB</text>
+<text x="240" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">setup-php @v2</text>
+<text x="240" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">service MariaDB 10.5</text>
+<line x1="310" y1="150" x2="328" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 3: Composer + SCSS -->
+<rect x="330" y="120" width="140" height="60" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="400" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8">Composer + SCSS</text>
+<text x="400" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">composer update</text>
+<text x="400" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">npm run build</text>
+<line x1="470" y1="150" x2="488" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 4: Seed BDD -->
+<rect x="490" y="120" width="130" height="60" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="555" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8">Seed BDD</text>
+<text x="555" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">mysql &lt; init_db.sql</text>
+<text x="555" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">donnees de test</text>
+<line x1="620" y1="150" x2="638" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 5: PHPUnit -->
+<rect x="640" y="120" width="130" height="60" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="705" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#1D4ED8">PHPUnit</text>
+<text x="705" y="159" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">15 tests</text>
+<text x="705" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#7C3AED">strict: recette / prod</text>
+<line x1="770" y1="150" x2="788" y2="150" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Result: OK -->
+<rect x="790" y="128" width="72" height="44" fill="#F0FDF4" rx="6" stroke="#22C55E" stroke-width="2"/>
+<text x="826" y="147" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#15803D">Tests</text>
+<text x="826" y="164" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#15803D">OK ✓</text>
+
+<!-- Note strict -->
+<text x="450" y="218" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#7C3AED">Mode strict sur recette et prod : --fail-on-warning --fail-on-risky  |  Mode normal sur dev</text>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SWIMLANE 2 : recette.yml -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<rect x="20" y="265" width="860" height="185" fill="#F8FAFC" rx="8" stroke="#E2E8F0" stroke-width="1.5"/>
+
+<!-- Header -->
+<path d="M28,265 L872,265 Q880,265 880,273 L880,301 L20,301 L20,273 Q20,265 28,265 Z" fill="#312E81"/>
+<text x="110" y="288" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">recette.yml</text>
+<text x="490" y="288" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#C4B5FD">Declencheur : push sur la branche recette uniquement</text>
+
+<!-- Steps row -->
+<!-- Step 1: Checkout -->
+<rect x="75" y="315" width="130" height="60" fill="#F5F3FF" rx="6" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="140" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#5B21B6">Checkout</text>
+<text x="140" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">actions/checkout</text>
+<text x="140" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">@v3</text>
+<line x1="205" y1="345" x2="228" y2="345" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 2: Login DockerHub -->
+<rect x="230" y="315" width="150" height="60" fill="#F5F3FF" rx="6" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="305" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#5B21B6">Login DockerHub</text>
+<text x="305" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">docker/login-action</text>
+<text x="305" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">secrets: user + token</text>
+<line x1="380" y1="345" x2="403" y2="345" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 3: Build image -->
+<rect x="405" y="315" width="150" height="60" fill="#F5F3FF" rx="6" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="480" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#5B21B6">Build image</text>
+<text x="480" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">docker/build-push-action</text>
+<text x="480" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">depuis Dockerfile</text>
+<line x1="555" y1="345" x2="578" y2="345" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Step 4: Push DockerHub -->
+<rect x="580" y="315" width="155" height="60" fill="#F5F3FF" rx="6" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="657" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#5B21B6">Push DockerHub</text>
+<text x="657" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">:latest</text>
+<text x="657" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#374151">:&lt;commit-sha&gt;</text>
+<line x1="735" y1="345" x2="758" y2="345" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Result: Image publiee -->
+<rect x="760" y="318" width="95" height="54" fill="#F0FDF4" rx="6" stroke="#22C55E" stroke-width="2"/>
+<text x="807" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#15803D">Image</text>
+<text x="807" y="352" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#15803D">publiee sur</text>
+<text x="807" y="366" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#15803D">DockerHub ✓</text>
+
+<!-- Note bottom -->
+<text x="450" y="415" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">L image embarque PHP 8.2 + Apache + le code de l application – deployable sur n importe quel hote Docker</text>
+
+<!-- ── Sequence footer ── -->
+<rect x="20" y="460" width="860" height="22" fill="#F1F5F9" rx="6"/>
+<text x="450" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#475569">Sur push vers recette : ci.yml et recette.yml se declenchent tous les deux – les tests valident la qualite, l image est publiee en parallele</text>
+
+</svg>
