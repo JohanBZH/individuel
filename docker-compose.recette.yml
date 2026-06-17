@@ -7,12 +7,12 @@ services:
     build: .
     container_name: meetrooms_web_recette
     ports:
-      - "8085:80"
+      - "${PORT}:80"
     environment:
-      - DB_HOST=db_recette
-      - DB_NAME=meetrooms
-      - DB_USER=meetrooms_user
-      - DB_PASSWORD=meetrooms_pass
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db_recette
 
@@ -20,10 +20,10 @@ services:
     image: mariadb:10.11
     container_name: meetrooms_db_recette
     environment:
-      - MYSQL_ROOT_PASSWORD=meetrooms_root
-      - MYSQL_DATABASE=meetrooms
-      - MYSQL_USER=meetrooms_user
-      - MYSQL_PASSWORD=meetrooms_pass
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - db_recette_data:/var/lib/mysql
       - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
