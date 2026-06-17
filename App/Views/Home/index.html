@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Accueil{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
 
 {% block body %}
 <!-- Hero / Recherche -->
@@ -9,19 +13,24 @@
 		<h1 style="margin:0 0 8px; font-size:28px;">Trouvez la salle parfaite</h1>
 		<p class="sub" style="margin:0 0 14px;">Réservez des espaces de réunion confortables et sans prise de tête.</p>
 
-		<form class="search" aria-label="Recherche de salle" action="/reservations" method="get">
+		<form class="search" id="search-form" aria-label="Recherche de salle" action="/buildings" method="get">
 			<div class="search-row">
 				<label class="field">
 					<span class="label">Bureau / Site</span>
-					<input type="text" name="site" placeholder="Paris, Lyon, Remote..." />
+					<select name="building_id" id="search-building">
+						<option value="">Tous les sites</option>
+						{% for b in buildings|default([]) %}
+							<option value="{{ b.id }}">{{ b.name }}</option>
+						{% endfor %}
+					</select>
 				</label>
 				<label class="field">
 					<span class="label">Date</span>
-					<input type="date" name="date" />
+					<input type="text" id="search-date" name="date" placeholder="JJ/MM/AAAA" />
 				</label>
 				<label class="field">
 					<span class="label">Créneau (début)</span>
-					<input type="time" name="start" />
+					<input type="text" id="search-start" name="start" placeholder="HH:MM" />
 				</label>
 				<label class="field">
 					<span class="label">Durée</span>
@@ -33,7 +42,7 @@
 						<option value="180">3 h</option>
 					</select>
 				</label>
-				<button class="btn primary" type="submit" disabled aria-disabled="true" title="Bientôt disponible">
+				<button class="btn primary" id="search-btn" type="submit" disabled aria-disabled="true">
 					<i class="bi bi-search" style="margin-right:6px;"></i>
 					Rechercher
 				</button>
@@ -174,4 +183,41 @@
 			</aside>
 		</div>
 	</section>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    const searchBtn = document.getElementById('search-btn');
+
+    function updateSearchBtn() {
+        const dateOk  = document.getElementById('search-date').value.trim() !== '';
+        const startOk = document.getElementById('search-start').value.trim() !== '';
+        const enabled = dateOk && startOk;
+        searchBtn.disabled = !enabled;
+        searchBtn.setAttribute('aria-disabled', String(!enabled));
+    }
+
+    flatpickr('#search-date', {
+        allowInput: true,
+        dateFormat: 'Y-m-d',
+        altInput: true,
+        altFormat: 'd/m/Y',
+        onClose: updateSearchBtn,
+    });
+
+    flatpickr('#search-start', {
+        noCalendar: true,
+        enableTime: true,
+        time_24hr: true,
+        minuteIncrement: 15,
+        allowInput: true,
+        dateFormat: 'H:i',
+        onClose: updateSearchBtn,
+    });
+
+    // also catch manual typing
+    document.getElementById('search-date').addEventListener('change', updateSearchBtn);
+    document.getElementById('search-start').addEventListener('change', updateSearchBtn);
+</script>
 {% endblock %}

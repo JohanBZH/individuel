@@ -63,7 +63,8 @@ class Home extends \Core\Controller
             'topBuildings' => $topBuildings,
             'topRooms' => $topRooms,
             'totalBuildings' => $totalBuildings,
-            'totalRooms' => $totalRooms
+            'totalRooms' => $totalRooms,
+            'buildings' => $allBuildings,
         ]);
     }
 }
