@@ -230,7 +230,7 @@ class ReservationsModelTest extends TestCase
 
 ---
 
-## CI/CD
+## CI
 
 Les tests sont exécutés automatiquement via `.github/workflows/ci.yml` sur chaque push et PR vers `dev`, `recette` et `prod`.
 

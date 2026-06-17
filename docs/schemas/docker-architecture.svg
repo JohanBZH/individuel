@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="560" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+    <polygon points="0 0, 8 3.5, 0 7" fill="#9CA3AF"/>
+  </marker>
+</defs>
+
+<rect width="900" height="560" fill="#FFFFFF"/>
+
+<!-- Title -->
+<text x="450" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="#111827">Architecture Docker – MeetRooms</text>
+<text x="450" y="57" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#6B7280">3 environnements coexistants sur la meme machine hote</text>
+
+<!-- ══ DEV (center x=152) ══ -->
+<rect x="25" y="70" width="255" height="455" fill="#F9FAFB" rx="10" stroke="#E5E7EB" stroke-width="1.5"/>
+<path d="M35,70 L270,70 Q280,70 280,80 L280,122 L25,122 L25,80 Q25,70 35,70 Z" fill="#2563EB"/>
+<text x="152" y="93" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">DEV</text>
+<text x="152" y="112" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#BFDBFE">localhost : 8084</text>
+
+<rect x="40" y="133" width="225" height="88" fill="#EFF6FF" rx="6" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="152" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#1D4ED8">meetrooms_web_dev</text>
+<text x="152" y="172" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">PHP 8.2 + Apache</text>
+<text x="152" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">port 80 -&gt; 8084</text>
+<text x="152" y="208" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#EA580C">bind mount : ./ -&gt; /var/www/html</text>
+
+<line x1="152" y1="221" x2="152" y2="247" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<rect x="40" y="250" width="225" height="72" fill="#F0FDF4" rx="6" stroke="#86EFAC" stroke-width="1.5"/>
+<text x="152" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#15803D">meetrooms_db_dev</text>
+<text x="152" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">MariaDB 10.11</text>
+<text x="152" y="306" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">init via init_db.sql</text>
+
+<rect x="62" y="337" width="180" height="26" fill="#FEF3C7" rx="13" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="152" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#92400E">Volume : db_dev_data</text>
+
+<text x="152" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#6B7280">Modifications visibles a chaud</text>
+<text x="152" y="417" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#6B7280">sans rebuild (bind mount actif)</text>
+
+<!-- ══ RECETTE (center x=450) ══ -->
+<rect x="323" y="70" width="255" height="455" fill="#F9FAFB" rx="10" stroke="#E5E7EB" stroke-width="1.5"/>
+<path d="M333,70 L568,70 Q578,70 578,80 L578,122 L323,122 L323,80 Q323,70 333,70 Z" fill="#7C3AED"/>
+<text x="450" y="93" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">RECETTE</text>
+<text x="450" y="112" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#DDD6FE">localhost : 8085</text>
+
+<rect x="338" y="133" width="225" height="88" fill="#F5F3FF" rx="6" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="450" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#5B21B6">meetrooms_web_recette</text>
+<text x="450" y="172" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">PHP 8.2 + Apache</text>
+<text x="450" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">port 80 -&gt; 8085</text>
+<text x="450" y="208" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#7C3AED">Image construite depuis Dockerfile</text>
+
+<line x1="450" y1="221" x2="450" y2="247" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<rect x="338" y="250" width="225" height="72" fill="#F0FDF4" rx="6" stroke="#86EFAC" stroke-width="1.5"/>
+<text x="450" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#15803D">meetrooms_db_recette</text>
+<text x="450" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">MariaDB 10.11</text>
+<text x="450" y="306" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">init via init_db.sql</text>
+
+<rect x="360" y="337" width="180" height="26" fill="#FEF3C7" rx="13" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="450" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#92400E">Volume : db_recette_data</text>
+
+<text x="450" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#6B7280">Tests stricts (--fail-on-warning)</text>
+<text x="450" y="417" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#6B7280">Validation avant production</text>
+
+<!-- ══ PROD (center x=748) ══ -->
+<rect x="621" y="70" width="255" height="455" fill="#F9FAFB" rx="10" stroke="#E5E7EB" stroke-width="1.5"/>
+<path d="M631,70 L866,70 Q876,70 876,80 L876,122 L621,122 L621,80 Q621,70 631,70 Z" fill="#DC2626"/>
+<text x="748" y="93" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">PROD</text>
+<text x="748" y="112" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#FECACA">localhost : 8086</text>
+
+<rect x="636" y="133" width="225" height="88" fill="#FEF2F2" rx="6" stroke="#FCA5A5" stroke-width="1.5"/>
+<text x="748" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#991B1B">meetrooms_web_prod</text>
+<text x="748" y="172" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">PHP 8.2 + Apache</text>
+<text x="748" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">port 80 -&gt; 8086</text>
+<text x="748" y="208" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#DC2626">Code embarque dans l image Docker</text>
+
+<line x1="748" y1="221" x2="748" y2="247" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<rect x="636" y="250" width="225" height="72" fill="#F0FDF4" rx="6" stroke="#86EFAC" stroke-width="1.5"/>
+<text x="748" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#15803D">meetrooms_db_prod</text>
+<text x="748" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">MariaDB 10.11</text>
+<text x="748" y="306" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#374151">init via init_db.sql</text>
+
+<rect x="641" y="335" width="214" height="30" fill="#FEF3C7" rx="15" stroke="#F59E0B" stroke-width="2.5"/>
+<text x="748" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#92400E">Volume persistant : db_prod_data</text>
+
+<text x="748" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#DC2626" font-weight="bold">Donnees conservees apres restart</text>
+<text x="748" y="417" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#6B7280">Image autonome, sans bind mount</text>
+
+<!-- Legend -->
+<line x1="25" y1="543" x2="55" y2="543" stroke="#EA580C" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="62" y="547" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Bind mount (dev uniquement)</text>
+<rect x="240" y="537" width="16" height="10" fill="#FEF3C7" rx="3" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="262" y="547" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Volume Docker</text>
+<rect x="380" y="537" width="16" height="10" fill="#FEF3C7" rx="3" stroke="#F59E0B" stroke-width="2.5"/>
+<text x="402" y="547" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Volume persistant (prod)</text>
+<rect x="580" y="537" width="16" height="10" fill="#F0FDF4" rx="3" stroke="#86EFAC" stroke-width="1.5"/>
+<text x="602" y="547" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Container base de donnees</text>
+
+</svg>

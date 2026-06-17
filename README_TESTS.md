@@ -83,7 +83,7 @@ php vendor/bin/phpunit tests/ --coverage-html coverage/
 - Test coverage details
 - Configuration instructions
 - Troubleshooting guide
-- CI/CD integration examples
+- CI integration examples
 
 ### 2. **TEST_SUMMARY.md** - Implementation Details
 - Design decisions explained
@@ -97,4 +97,4 @@ php vendor/bin/phpunit tests/ --coverage-html coverage/
 - Model test templates
 - Example implementations
 - Best practices
-- CI/CD workflow examples
+- CI workflow examples

@@ -161,7 +161,7 @@ feature/* ──► dev ──► recette ──► prod
 
 ---
 
-## Pipeline CI/CD
+## Pipeline CI
 
 ### `ci.yml` — Tests automatiques
 

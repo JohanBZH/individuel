@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="460" viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+    <polygon points="0 0, 8 3.5, 0 7" fill="#6B7280"/>
+  </marker>
+</defs>
+
+<rect width="900" height="460" fill="#FFFFFF"/>
+
+<!-- Title -->
+<text x="450" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="#111827">Workflow GitFlow – MeetRooms</text>
+<text x="450" y="57" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#6B7280">De la correction des anomalies jusqu au deploiement en production</text>
+
+<!-- ── Branch labels (left) ── -->
+<rect x="20" y="148" width="90" height="28" fill="#2563EB" rx="5"/>
+<text x="65" y="167" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">dev</text>
+
+<rect x="20" y="258" width="90" height="28" fill="#7C3AED" rx="5"/>
+<text x="65" y="277" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">recette</text>
+
+<rect x="20" y="368" width="90" height="28" fill="#DC2626" rx="5"/>
+<text x="65" y="387" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">prod</text>
+
+<!-- ── Branch lines ── -->
+<line x1="120" y1="162" x2="875" y2="162" stroke="#93C5FD" stroke-width="3"/>
+<line x1="530" y1="272" x2="875" y2="272" stroke="#C4B5FD" stroke-width="3"/>
+<line x1="750" y1="382" x2="875" y2="382" stroke="#FCA5A5" stroke-width="3"/>
+
+<!-- ── Dev commits ── -->
+<!-- c0: etat initial -->
+<circle cx="155" cy="162" r="7" fill="#2563EB" stroke="white" stroke-width="2"/>
+<text x="155" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#6B7280">etat</text>
+<text x="155" y="138" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#6B7280">initial</text>
+
+<!-- c1: fix theme -->
+<circle cx="290" cy="162" r="9" fill="#2563EB" stroke="white" stroke-width="2"/>
+<!-- Issue badge #1 -->
+<rect x="258" y="102" width="64" height="18" fill="#FEF3C7" rx="9" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="290" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#92400E">Issue #1</text>
+<text x="290" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Theme</text>
+<line x1="290" y1="120" x2="290" y2="153" stroke="#FCD34D" stroke-width="1" stroke-dasharray="3,2"/>
+
+<!-- c2: fix date -->
+<circle cx="400" cy="162" r="9" fill="#2563EB" stroke="white" stroke-width="2"/>
+<!-- Issue badge #2 -->
+<rect x="368" y="102" width="64" height="18" fill="#FEF3C7" rx="9" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="400" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#92400E">Issue #2</text>
+<text x="400" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Date fin</text>
+<line x1="400" y1="120" x2="400" y2="153" stroke="#FCD34D" stroke-width="1" stroke-dasharray="3,2"/>
+
+<!-- c3: fix restriction -->
+<circle cx="510" cy="162" r="9" fill="#2563EB" stroke="white" stroke-width="2"/>
+<!-- Issue badge #3 -->
+<rect x="478" y="102" width="64" height="18" fill="#FEF3C7" rx="9" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="510" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#92400E">Issue #3</text>
+<text x="510" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Restriction</text>
+<line x1="510" y1="120" x2="510" y2="153" stroke="#FCD34D" stroke-width="1" stroke-dasharray="3,2"/>
+
+<!-- CI annotation on dev -->
+<text x="320" y="185" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#2563EB">CI : tests PHPUnit (mode normal)</text>
+
+<!-- ── Merge dev -> recette ── -->
+<!-- Open circle at merge point on dev -->
+<circle cx="530" cy="162" r="9" fill="white" stroke="#2563EB" stroke-width="2.5"/>
+<!-- Curved arrow -->
+<path d="M530,162 C530,205 530,230 530,272" stroke="#7C3AED" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<!-- MR label -->
+<rect x="535" y="190" width="135" height="24" fill="#F5F3FF" rx="5" stroke="#C4B5FD" stroke-width="1.5"/>
+<text x="602" y="206" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#5B21B6">MR dev -&gt; recette</text>
+
+<!-- ── Recette commits ── -->
+<!-- r1: CI run + build image -->
+<circle cx="640" cy="272" r="9" fill="#7C3AED" stroke="white" stroke-width="2"/>
+<text x="640" y="250" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#7C3AED" font-weight="bold">Build image</text>
+<text x="640" y="295" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">CI strict + DockerHub</text>
+
+<!-- r2: validation -->
+<circle cx="730" cy="272" r="9" fill="#7C3AED" stroke="white" stroke-width="2"/>
+
+<!-- Merge point on recette -->
+<circle cx="750" cy="272" r="9" fill="white" stroke="#7C3AED" stroke-width="2.5"/>
+
+<!-- ── Merge recette -> prod ── -->
+<path d="M750,272 C750,315 750,340 750,382" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<!-- MR label -->
+<rect x="755" y="300" width="140" height="24" fill="#FEF2F2" rx="5" stroke="#FCA5A5" stroke-width="1.5"/>
+<text x="825" y="316" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#991B1B">MR recette -&gt; prod</text>
+
+<!-- ── Prod commits ── -->
+<circle cx="800" cy="382" r="9" fill="#DC2626" stroke="white" stroke-width="2"/>
+<text x="800" y="360" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#DC2626" font-weight="bold">Version stable</text>
+<text x="800" y="405" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#6B7280">Prete au deploiement</text>
+
+<!-- ── Legend ── -->
+<circle cx="30" cy="440" r="7" fill="#2563EB" stroke="white" stroke-width="1.5"/>
+<text x="44" y="444" font-family="Arial,sans-serif" font-size="10" fill="#374151">Commit (correctif)</text>
+<circle cx="180" cy="440" r="7" fill="white" stroke="#2563EB" stroke-width="2.5"/>
+<text x="194" y="444" font-family="Arial,sans-serif" font-size="10" fill="#374151">Point de merge</text>
+<rect x="330" y="433" width="55" height="15" fill="#FEF3C7" rx="7" stroke="#FCD34D" stroke-width="1.5"/>
+<text x="357" y="444" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#92400E">Issue #</text>
+<text x="394" y="444" font-family="Arial,sans-serif" font-size="10" fill="#374151">Issue GitHub liee au correctif</text>
+<line x1="580" y1="440" x2="610" y2="440" stroke="#7C3AED" stroke-width="2" marker-end="url(#arr)"/>
+<text x="618" y="444" font-family="Arial,sans-serif" font-size="10" fill="#374151">Merge Request</text>
+
+</svg>
