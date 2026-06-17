@@ -3,11 +3,16 @@ set -e
 
 echo "🚀 Starting MeetRooms Production Deployment..."
 
-echo "Pulling latest changes from git..."
-git pull origin prod
+if [ "$(git branch --show-current)" != "prod" ]; then
+  echo "❌ Must be on the prod branch before deploying. Run: git checkout prod"
+  exit 1
+fi
 
-echo "Building Docker image..."
-docker compose --file docker-compose.prod.yml --env-file .env.prod up -d --build
+echo "Pulling latest image from DockerHub..."
+docker compose --file docker-compose.prod.yml --env-file .env.prod pull
+
+echo "Starting containers..."
+docker compose --file docker-compose.prod.yml --env-file .env.prod up -d
 
 echo ""
 echo "✅ Deployment complete!"

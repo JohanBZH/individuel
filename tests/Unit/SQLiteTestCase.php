@@ -89,16 +89,6 @@ abstract class SQLiteTestCase extends TestCase
     }
 
     /**
-     * Override the Model's getDB() method to use our test database
-     */
-    protected function injectTestDatabase()
-    {
-        // This uses reflection to set the static db property
-        // Note: This requires modifying how the Model works
-        $this->markTestSkipped('Database injection not available without Core refactoring');
-    }
-
-    /**
      * Insert test data into the database
      */
     protected function insertTestBuildings()
