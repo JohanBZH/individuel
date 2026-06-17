@@ -1,4 +1,4 @@
-name: MeetRooms CI/CD Pipeline
+name: MeetRooms CI Pipeline
 
 on:
   push:
