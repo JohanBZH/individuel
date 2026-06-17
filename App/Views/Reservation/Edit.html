@@ -2,6 +2,10 @@
 
 {% block title %}Modifier la réservation{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
 {% block body %}
 <div class="container section">
     <div class="d-flex align-items-center justify-content-between" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
@@ -34,11 +38,11 @@
 
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="start">Début</label>
-                    <input id="start" name="start_datetime" type="datetime-local" required aria-required="true" value="{{ data.start_datetime|default('')|replace({' ': 'T'}) }}" />
+                    <input id="start" name="start_datetime" type="text" required aria-required="true" value="{{ data.start_datetime|default('')|replace({'T': ' '})|slice(0, 16) }}" placeholder="JJ/MM/AAAA HH:MM" />
                 </div>
                 <div class="field" style="grid-column: span 6;">
                     <label class="label" for="end">Fin</label>
-                    <input id="end" name="end_datetime" type="datetime-local" required aria-required="true" value="{{ data.end_datetime|default('')|replace({' ': 'T'}) }}" />
+                    <input id="end" name="end_datetime" type="text" required aria-required="true" value="{{ data.end_datetime|default('')|replace({'T': ' '})|slice(0, 16) }}" placeholder="JJ/MM/AAAA HH:MM" />
                 </div>
 
                 <div class="field" style="grid-column: span 12;">
@@ -82,6 +86,39 @@
 
     // On load: populate from existing data
     if (buildingSelect.value) populateRooms(buildingSelect.value);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        const FP_CFG = {
+            enableTime: true,
+            minuteIncrement: 15,
+            allowInput: true,
+            time_24hr: true,
+            dateFormat: 'Y-m-d H:i',
+        };
+
+        const fpEnd = flatpickr('#end', FP_CFG);
+
+        let prevStartMs = null;
+        const fpStart = flatpickr('#start', Object.assign({}, FP_CFG, {
+            onReady: function(dates) {
+                prevStartMs = dates.length ? dates[0].getTime() : null;
+            },
+            onChange: function(dates) {
+                if (!dates.length) return;
+                const newStart = dates[0];
+                const endDates = fpEnd.selectedDates;
+
+                if (endDates.length && prevStartMs !== null) {
+                    const durationMs = endDates[0].getTime() - prevStartMs;
+                    fpEnd.setDate(new Date(newStart.getTime() + (durationMs > 0 ? durationMs : 3600000)));
+                } else {
+                    fpEnd.setDate(new Date(newStart.getTime() + 3600000));
+                }
+
+                prevStartMs = newStart.getTime();
+            }
+        }));
     </script>
 </div>
 {% endblock body %}
