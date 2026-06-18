@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="950" height="580" viewBox="0 0 950 580" xmlns="http://www.w3.org/2000/svg">
+<rect width="950" height="580" fill="#FFFFFF"/>
+
+<!-- Title -->
+<text x="475" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="bold" fill="#111827">Modele de donnees – MeetRooms</text>
+<text x="475" y="57" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#6B7280">MariaDB 10.11 · 4 tables · ON DELETE CASCADE / SET NULL</text>
+
+<!-- ══ RELATIONSHIP LINES (drawn first, behind entities) ══ -->
+
+<!-- buildings (1) → rooms (N) : CASCADE -->
+<line x1="122" y1="203" x2="132" y2="320" stroke="#9CA3AF" stroke-width="1.5"/>
+<text x="92"  y="218" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">1</text>
+<text x="136" y="316" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">N</text>
+<text x="56"  y="263" font-family="Arial,sans-serif" font-size="9" fill="#9CA3AF">CASCADE</text>
+
+<!-- rooms (1) → reservations (N) : SET NULL -->
+<line x1="245" y1="420" x2="480" y2="420" stroke="#9CA3AF" stroke-width="1.5"/>
+<text x="250" y="414" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">1</text>
+<text x="455" y="414" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">N</text>
+<text x="316" y="413" font-family="Arial,sans-serif" font-size="9" fill="#9CA3AF">SET NULL</text>
+
+<!-- users (1) → reservations (N) : CASCADE -->
+<path d="M827,269 L827,300 L720,300 L720,425" stroke="#9CA3AF" stroke-width="1.5" fill="none"/>
+<text x="833" y="283" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">1</text>
+<text x="724" y="420" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#374151">N</text>
+<text x="730" y="295" font-family="Arial,sans-serif" font-size="9" fill="#9CA3AF">CASCADE</text>
+
+<!-- ══ buildings (x=20, y=80, w=205, h=123) ══ -->
+<rect x="20" y="80" width="205" height="123" fill="white" rx="6" stroke="#CBD5E1" stroke-width="1.5"/>
+<path d="M26,80 L219,80 Q225,80 225,86 L225,115 L20,115 L20,86 Q20,80 26,80 Z" fill="#1E293B"/>
+<text x="122" y="102" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">buildings</text>
+
+<rect x="20" y="115" width="205" height="22" fill="#FFFBEB"/>
+<rect x="25" y="119" width="22" height="14" fill="#FEF3C7" rx="3"/>
+<text x="36" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#92400E">PK</text>
+<text x="52" y="130" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#111827">id</text>
+<text x="220" y="130" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="20" y1="137" x2="225" y2="137" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="137" width="205" height="22" fill="white"/>
+<rect x="25" y="141" width="22" height="14" fill="#F3F4F6" rx="3"/>
+<text x="36" y="152" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#374151">UQ</text>
+<text x="52" y="152" font-family="Arial,sans-serif" font-size="11" fill="#374151">code</text>
+<text x="220" y="152" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="20" y1="159" x2="225" y2="159" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="159" width="205" height="22" fill="#F9FAFB"/>
+<text x="52" y="174" font-family="Arial,sans-serif" font-size="11" fill="#374151">name</text>
+<text x="220" y="174" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="20" y1="181" x2="225" y2="181" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="181" width="205" height="22" fill="white"/>
+<text x="52" y="196" font-family="Arial,sans-serif" font-size="11" fill="#374151">created_at</text>
+<text x="220" y="196" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+
+<!-- ══ users (x=725, y=80, w=205, h=189) ══ -->
+<rect x="725" y="80" width="205" height="189" fill="white" rx="6" stroke="#CBD5E1" stroke-width="1.5"/>
+<path d="M731,80 L924,80 Q930,80 930,86 L930,115 L725,115 L725,86 Q725,80 731,80 Z" fill="#1E293B"/>
+<text x="827" y="102" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">users</text>
+
+<rect x="725" y="115" width="205" height="22" fill="#FFFBEB"/>
+<rect x="730" y="119" width="22" height="14" fill="#FEF3C7" rx="3"/>
+<text x="741" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#92400E">PK</text>
+<text x="757" y="130" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#111827">id</text>
+<text x="925" y="130" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="725" y1="137" x2="930" y2="137" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="137" width="205" height="22" fill="white"/>
+<text x="757" y="152" font-family="Arial,sans-serif" font-size="11" fill="#374151">username</text>
+<text x="925" y="152" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="725" y1="159" x2="930" y2="159" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="159" width="205" height="22" fill="#F9FAFB"/>
+<rect x="730" y="163" width="22" height="14" fill="#F3F4F6" rx="3"/>
+<text x="741" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#374151">UQ</text>
+<text x="757" y="174" font-family="Arial,sans-serif" font-size="11" fill="#374151">email</text>
+<text x="925" y="174" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="725" y1="181" x2="930" y2="181" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="181" width="205" height="22" fill="white"/>
+<text x="757" y="196" font-family="Arial,sans-serif" font-size="11" fill="#374151">password</text>
+<text x="925" y="196" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="725" y1="203" x2="930" y2="203" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="203" width="205" height="22" fill="#F9FAFB"/>
+<text x="757" y="218" font-family="Arial,sans-serif" font-size="11" fill="#374151">salt</text>
+<text x="925" y="218" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="725" y1="225" x2="930" y2="225" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="225" width="205" height="22" fill="white"/>
+<text x="757" y="240" font-family="Arial,sans-serif" font-size="11" fill="#374151">is_admin</text>
+<text x="925" y="240" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">BOOL</text>
+<line x1="725" y1="247" x2="930" y2="247" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="725" y="247" width="205" height="22" fill="#F9FAFB"/>
+<text x="757" y="262" font-family="Arial,sans-serif" font-size="11" fill="#374151">created_at</text>
+<text x="925" y="262" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+
+<!-- ══ rooms (x=20, y=320, w=225, h=189) ══ -->
+<rect x="20" y="320" width="225" height="189" fill="white" rx="6" stroke="#CBD5E1" stroke-width="1.5"/>
+<path d="M26,320 L239,320 Q245,320 245,326 L245,355 L20,355 L20,326 Q20,320 26,320 Z" fill="#1E293B"/>
+<text x="132" y="342" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">rooms</text>
+
+<rect x="20" y="355" width="225" height="22" fill="#FFFBEB"/>
+<rect x="25" y="359" width="22" height="14" fill="#FEF3C7" rx="3"/>
+<text x="36" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#92400E">PK</text>
+<text x="52" y="370" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#111827">id</text>
+<text x="240" y="370" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="20" y1="377" x2="245" y2="377" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="377" width="225" height="22" fill="#EFF6FF"/>
+<rect x="25" y="381" width="22" height="14" fill="#DBEAFE" rx="3"/>
+<text x="36" y="392" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#1D4ED8">FK</text>
+<text x="52" y="392" font-family="Arial,sans-serif" font-size="11" fill="#374151">building_id</text>
+<text x="240" y="392" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="20" y1="399" x2="245" y2="399" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="399" width="225" height="22" fill="white"/>
+<rect x="25" y="403" width="22" height="14" fill="#F3F4F6" rx="3"/>
+<text x="36" y="414" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#374151">UQ</text>
+<text x="52" y="414" font-family="Arial,sans-serif" font-size="11" fill="#374151">code</text>
+<text x="240" y="414" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="20" y1="421" x2="245" y2="421" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="421" width="225" height="22" fill="#F9FAFB"/>
+<text x="52" y="436" font-family="Arial,sans-serif" font-size="11" fill="#374151">name</text>
+<text x="240" y="436" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR</text>
+<line x1="20" y1="443" x2="245" y2="443" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="443" width="225" height="22" fill="white"/>
+<text x="52" y="458" font-family="Arial,sans-serif" font-size="11" fill="#374151">capacity</text>
+<text x="240" y="458" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="20" y1="465" x2="245" y2="465" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="465" width="225" height="22" fill="#F9FAFB"/>
+<text x="52" y="480" font-family="Arial,sans-serif" font-size="11" fill="#374151">features</text>
+<text x="240" y="480" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">TEXT</text>
+<line x1="20" y1="487" x2="245" y2="487" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="20" y="487" width="225" height="22" fill="white"/>
+<text x="52" y="502" font-family="Arial,sans-serif" font-size="11" fill="#374151">created_at</text>
+<text x="240" y="502" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+
+<!-- ══ reservations (x=480, y=320, w=240, h=211) ══ -->
+<rect x="480" y="320" width="240" height="211" fill="white" rx="6" stroke="#CBD5E1" stroke-width="1.5"/>
+<path d="M486,320 L714,320 Q720,320 720,326 L720,355 L480,355 L480,326 Q480,320 486,320 Z" fill="#1E293B"/>
+<text x="600" y="342" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">reservations</text>
+
+<rect x="480" y="355" width="240" height="22" fill="#FFFBEB"/>
+<rect x="485" y="359" width="22" height="14" fill="#FEF3C7" rx="3"/>
+<text x="496" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#92400E">PK</text>
+<text x="512" y="370" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#111827">id</text>
+<text x="715" y="370" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="480" y1="377" x2="720" y2="377" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="377" width="240" height="22" fill="white"/>
+<text x="512" y="392" font-family="Arial,sans-serif" font-size="11" fill="#374151">room</text>
+<text x="715" y="392" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">VARCHAR †</text>
+<line x1="480" y1="399" x2="720" y2="399" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="399" width="240" height="22" fill="#EFF6FF"/>
+<rect x="485" y="403" width="22" height="14" fill="#DBEAFE" rx="3"/>
+<text x="496" y="414" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#1D4ED8">FK</text>
+<text x="512" y="414" font-family="Arial,sans-serif" font-size="11" fill="#374151">room_id</text>
+<text x="715" y="414" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT NULL</text>
+<line x1="480" y1="421" x2="720" y2="421" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="421" width="240" height="22" fill="white"/>
+<text x="512" y="436" font-family="Arial,sans-serif" font-size="11" fill="#374151">start_datetime</text>
+<text x="715" y="436" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+<line x1="480" y1="443" x2="720" y2="443" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="443" width="240" height="22" fill="#F9FAFB"/>
+<text x="512" y="458" font-family="Arial,sans-serif" font-size="11" fill="#374151">end_datetime</text>
+<text x="715" y="458" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+<line x1="480" y1="465" x2="720" y2="465" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="465" width="240" height="22" fill="#EFF6FF"/>
+<rect x="485" y="469" width="22" height="14" fill="#DBEAFE" rx="3"/>
+<text x="496" y="480" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#1D4ED8">FK</text>
+<text x="512" y="480" font-family="Arial,sans-serif" font-size="11" fill="#374151">user_id</text>
+<text x="715" y="480" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">INT</text>
+<line x1="480" y1="487" x2="720" y2="487" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="487" width="240" height="22" fill="white"/>
+<text x="512" y="502" font-family="Arial,sans-serif" font-size="11" fill="#374151">comment</text>
+<text x="715" y="502" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">TEXT</text>
+<line x1="480" y1="509" x2="720" y2="509" stroke="#E5E7EB" stroke-width="0.5"/>
+
+<rect x="480" y="509" width="240" height="22" fill="#F9FAFB"/>
+<text x="512" y="524" font-family="Arial,sans-serif" font-size="11" fill="#374151">created_at</text>
+<text x="715" y="524" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">DATETIME</text>
+
+<!-- ══ LEGEND ══ -->
+<rect x="20" y="549" width="22" height="14" fill="#FEF3C7" rx="3"/>
+<text x="31" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#92400E">PK</text>
+<text x="48" y="561" font-family="Arial,sans-serif" font-size="10" fill="#374151">Cle primaire</text>
+
+<rect x="170" y="549" width="22" height="14" fill="#DBEAFE" rx="3"/>
+<text x="181" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#1D4ED8">FK</text>
+<text x="198" y="561" font-family="Arial,sans-serif" font-size="10" fill="#374151">Cle etrangere</text>
+
+<rect x="330" y="549" width="22" height="14" fill="#F3F4F6" rx="3"/>
+<text x="341" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#374151">UQ</text>
+<text x="358" y="561" font-family="Arial,sans-serif" font-size="10" fill="#374151">Contrainte unique</text>
+
+<text x="530" y="561" font-family="Arial,sans-serif" font-size="10" fill="#9CA3AF">† room : copie denormalisee du nom (conserve si la salle est supprimee)</text>
+
+</svg>
