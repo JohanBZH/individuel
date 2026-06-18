@@ -91,7 +91,7 @@ Variables disponibles :
 
 ```bash
 ./scripts/start.sh
-# Choisir : dev | recette | prod
+# Choisir : dev | recette | prod | tous
 ```
 
 ### Méthode manuelle
@@ -146,7 +146,7 @@ feature/* ──► dev ──► recette ──► prod
 
 | Branche | Rôle | Push direct |
 |---|---|---|
-| `dev` | Intégration quotidienne | Déconseillé |
+| `dev` | Intégration quotidienne | Oui |
 | `recette` | Validation pré-production | Interdit — PR depuis `dev` |
 | `prod` | Production stable | Interdit — PR depuis `recette` |
 
